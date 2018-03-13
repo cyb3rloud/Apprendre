@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Study Easy</string>
+    <string name="add_subj_txt">Add a subject</string>
 </resources>
