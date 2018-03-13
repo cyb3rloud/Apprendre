@@ -6,17 +6,14 @@
     android:layout_height="match_parent"
     tools:context="com.alanhughjones.studyeasy.SubjectListActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello Worlds!"
-        />
-
     <Button
         android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add_subject_btn"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+        android:background="@android:drawable/ic_menu_add"
         tools:layout_editor_absoluteX="148dp"
         tools:layout_editor_absoluteY="425dp" />
 
