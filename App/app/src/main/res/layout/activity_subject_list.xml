@@ -18,7 +18,8 @@
         android:background="@android:drawable/ic_menu_add"
         android:textColor="@android:color/white"
         tools:layout_editor_absoluteX="148dp"
-        tools:layout_editor_absoluteY="425dp" />
+        tools:layout_editor_absoluteY="425dp"
+        android:onClick="openAddSubject"/>
 
     <TextView
         android:id="@+id/addSubjTextView"
