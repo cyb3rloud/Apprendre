@@ -27,7 +27,7 @@
         android:layout_above="@+id/addSubjButton"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="11dp"
-        android:text="Add a subject"
+        android:text="@string/add_subj_txt"
         android:textColor="@android:color/white"
         android:textSize="24sp" />
 
