@@ -4,24 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
     android:visibility="visible"
     tools:context="com.alanhughjones.studyeasy.SubjectListActivity">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/addSubjButton"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="45dp"
+        android:layout_marginBottom="24dp"
         android:background="@android:drawable/ic_menu_add"
+        android:textColor="@android:color/white"
         tools:layout_editor_absoluteX="148dp"
         tools:layout_editor_absoluteY="425dp" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/addSubjTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add a subject" />
+        android:layout_above="@+id/addSubjButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="11dp"
+        android:text="Add a subject"
+        android:textColor="@android:color/white"
+        android:textSize="24sp" />
 
 </RelativeLayout>
