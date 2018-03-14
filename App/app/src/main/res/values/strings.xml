@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Study Easy</string>
     <string name="add_subj_txt">Add a subject</string>
+    <string name="study_ease_app_logo">Study Ease app logo</string>
 </resources>

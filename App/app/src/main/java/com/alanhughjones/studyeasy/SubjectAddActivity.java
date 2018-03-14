@@ -10,6 +10,6 @@ public class SubjectAddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subject_add);
 
-        // comment delete
+
     }
 }

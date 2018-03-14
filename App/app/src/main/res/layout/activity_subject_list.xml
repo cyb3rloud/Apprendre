@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
+    android:background="@drawable/stripedbackground"
     android:visibility="visible"
     tools:context="com.alanhughjones.studyeasy.SubjectListActivity">
 
@@ -31,5 +31,15 @@
         android:text="@string/add_subj_txt"
         android:textColor="@android:color/white"
         android:textSize="24sp" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="41dp"
+        android:contentDescription="@string/study_ease_app_logo"
+        app:srcCompat="@drawable/study_ease_logo" />
 
 </RelativeLayout>
