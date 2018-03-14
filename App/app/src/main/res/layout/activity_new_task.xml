@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.alanhughjones.studyeasy.SubjectAddActivity">
+    tools:context="com.alanhughjones.studyeasy.NewTaskActivity">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/subj_toolbar"
+        android:id="@+id/new_task_toolbar"
         android:layout_width="match_parent"
         android:layout_height="130dp"
         android:layout_alignParentLeft="true"
@@ -18,27 +18,27 @@
         android:theme="?attr/actionBarTheme" />
 
     <TextView
-        android:id="@+id/add_subject"
+        android:id="@+id/add_new_task"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toStartOf="@id/subj_done"
-        android:layout_toLeftOf="@id/subj_done"
-        android:layout_alignBottom="@+id/subj_toolbar"
+        android:layout_toStartOf="@id/add_task_done"
+        android:layout_toLeftOf="@id/add_task_done"
+        android:layout_alignBottom="@+id/new_task_toolbar"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="26dp"
         android:layout_marginLeft="31dp"
         android:layout_marginStart="31dp"
-        android:text="@string/add_subject"
+        android:text="@string/new_task"
         android:textColor="@android:color/white"
         android:textSize="24sp" />
 
     <Button
-        android:id="@+id/subj_done"
+        android:id="@+id/add_task_done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/add_subject"
-        android:layout_alignBottom="@+id/add_subject"
+        android:layout_alignBaseline="@+id/add_new_task"
+        android:layout_alignBottom="@+id/add_new_task"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginEnd="25dp"
@@ -49,26 +49,50 @@
         android:textSize="18sp"
         tools:textAllCaps="false" />
 
-    <EditText
-        android:id="@+id/input_subj"
+    <TextView
+        android:id="@+id/input_new_task"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/add_subject"
-        android:layout_alignStart="@+id/add_subject"
-        android:layout_below="@+id/input_subj_title"
+        android:layout_alignLeft="@+id/add_new_task"
+        android:layout_alignStart="@+id/add_new_task"
+        android:layout_below="@+id/new_task_toolbar"
+        android:layout_marginTop="34dp"
+        android:text="@string/task_name_input"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/input_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/input_new_task"
+        android:layout_alignStart="@+id/input_new_task"
+        android:layout_below="@+id/input_new_task"
         android:ems="10"
         android:inputType="textPersonName"
         android:textColor="@android:color/darker_gray" />
 
     <TextView
-        android:id="@+id/input_subj_title"
+        android:id="@+id/duedate_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/input_subj"
-        android:layout_alignStart="@+id/input_subj"
-        android:layout_below="@+id/subj_toolbar"
+        android:layout_alignLeft="@+id/add_new_task"
+        android:layout_alignStart="@+id/add_new_task"
+        android:layout_below="@+id/input_task"
         android:layout_marginTop="34dp"
-        android:text="@string/enter_subject"
+        android:text="@string/duedate_input"
         android:textColor="@android:color/black"
         android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/duedate_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/add_new_task"
+        android:layout_alignStart="@+id/add_new_task"
+        android:layout_below="@+id/duedate_title"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textColor="@android:color/darker_gray" />
+
 </RelativeLayout>
