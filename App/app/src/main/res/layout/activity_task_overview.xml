@@ -1,41 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@drawable/stripedbackground"
-    app:columnCount="2"
-    app:rowCount="3">
+    android:weightSum="10"
+    tools:context="com.alanhughjones.studyeasy.NewTaskActivity">
 
-    <TextView
-        app:layout_columnWeight="1"
-        app:layout_rowWeight="1"
-        app:layout_columnSpan="2"
-        android:text="Programming"
-        android:textColor="@color/colorAccent" />
-    <TextView
-        app:layout_columnWeight="1"
-        app:layout_rowWeight="1"
-        app:layout_columnSpan="1"
-        android:textAlignment="center"
-        android:text="Programming"
-        android:textColor="@color/colorAccent"
-        />
-    <TextView
-        app:layout_columnWeight="1"
-        app:layout_rowWeight="1"
-        app:layout_columnSpan="1"
-        android:textAlignment="center"
-        android:text="Programming"
-        android:textColor="@color/colorAccent"
-        />
-    <TextView
-        app:layout_columnWeight="1"
-        app:layout_rowWeight="2"
-        app:layout_columnSpan="2"
-        android:text="Programming"
-        android:textColor="@color/colorAccent"
-        />
+    <RelativeLayout
+        android:layout_weight="2.6"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
 
-</android.support.v7.widget.GridLayout>
+        <TextView
+            android:id="@+id/overview_subj"
+            android:text="Programming"
+            android:textSize="30sp"
+            android:textColor="@android:color/white"
+            android:layout_alignParentLeft="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="40dp"
+            android:layout_marginLeft="20dp"/>
+
+        <Button
+            android:id="@+id/add_task_done"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/overview_subj"
+            android:background="@android:color/holo_green_light"
+            android:text="Add new task"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            tools:textAllCaps="false" />
+
+    </RelativeLayout>
+
+    <GridLayout
+        android:columnCount="2"
+        android:rowCount="1"
+        android:alignmentMode="alignMargins"
+        android:columnOrderPreserved="false"
+        android:layout_weight="1.5"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        
+
+        <!-- #Row 1 -->
+        <!-- ##Column 1 -->
+        <android.support.v7.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            app:cardElevation="8dp"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_margin="0dp"
+                android:background="@android:color/holo_blue_light"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/task_count"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="12"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/left_count"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="upcoming"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
+
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <!-- #Row 1 -->
+        <!-- ##Column 2 -->
+        <android.support.v7.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            app:cardElevation="8dp"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_margin="0dp"
+                android:background="@android:color/holo_red_light"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/overdue_count"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="12"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/overdue_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="overdue"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
+
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </GridLayout>
+    
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></LinearLayout>
+        
+    </ScrollView>
+
+</LinearLayout>
