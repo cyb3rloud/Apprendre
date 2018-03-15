@@ -5,15 +5,20 @@ import android.app.Dialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.Calendar;
 
 public class NewTaskActivity extends AppCompatActivity {
 
+    Spinner spinner;
+    ArrayAdapter<CharSequence> adapter; //need to use cursorAdapter for database
 
     Button datePick;
     int year_x,month_x,day_x;
@@ -23,6 +28,25 @@ public class NewTaskActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_task);
+
+        spinner = findViewById(R.id.category_spinner);
+        adapter = ArrayAdapter.createFromResource(this,R.array.categories, R.layout.spinner_cat);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                Toast.makeText(getBaseContext(), parent.getItemAtPosition(position)+" selected",Toast.LENGTH_LONG).show();
+                
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
 
         final Calendar cal = Calendar.getInstance();
         year_x = cal.get(Calendar.YEAR);
