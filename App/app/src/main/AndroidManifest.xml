@@ -26,6 +26,7 @@
                 android:value=".SubjectListActivity" />
         </activity>
         <activity android:name=".NewTaskActivity" />
+        <activity android:name=".TaskOverviewActivity"></activity>
     </application>
 
 </manifest>
