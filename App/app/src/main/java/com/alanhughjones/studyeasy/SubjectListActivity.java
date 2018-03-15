@@ -16,7 +16,7 @@ public class SubjectListActivity extends AppCompatActivity {
     /** Called when user clicks + button **/
     public void openAddSubject(View view) {
         // Open subject 'add activity' when button is clicked
-        Intent intent = new Intent(this, SubjectAddActivity.class);
+        Intent intent = new Intent(this, NewTaskActivity.class); // change back to SubjectAddActivity
         startActivity(intent);
     }
 }

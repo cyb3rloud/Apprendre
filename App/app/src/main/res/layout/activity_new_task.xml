@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -56,21 +55,22 @@
         android:layout_alignLeft="@+id/add_new_task"
         android:layout_alignStart="@+id/add_new_task"
         android:layout_below="@+id/new_task_toolbar"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="18dp"
         android:text="@string/task_name_input"
         android:textColor="@android:color/black"
         android:textSize="18sp" />
 
     <EditText
         android:id="@+id/input_task"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/input_new_task"
         android:layout_alignStart="@+id/input_new_task"
         android:layout_below="@+id/input_new_task"
         android:ems="10"
         android:inputType="textPersonName"
-        android:textColor="@android:color/darker_gray" />
+        android:textColor="@android:color/darker_gray"
+        android:textColorLink="@color/colorPrimary" />
 
     <TextView
         android:id="@+id/duedate_title"
@@ -79,20 +79,47 @@
         android:layout_alignLeft="@+id/add_new_task"
         android:layout_alignStart="@+id/add_new_task"
         android:layout_below="@+id/input_task"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="5dp"
         android:text="@string/duedate_input"
         android:textColor="@android:color/black"
         android:textSize="18sp" />
 
-    <EditText
-        android:id="@+id/duedate_input"
+    <Button
+        android:id="@+id/datepick_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/add_new_task"
         android:layout_alignStart="@+id/add_new_task"
         android:layout_below="@+id/duedate_title"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textColor="@android:color/darker_gray" />
+        android:layout_marginTop="5dp"
+        android:background="@android:color/darker_gray"
+        android:text="@string/choose_date"
+        android:textColor="@android:color/background_light"
+        tools:textAllCaps="false" />
+
+    <TextView
+        android:id="@+id/task_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/add_new_task"
+        android:layout_alignStart="@+id/add_new_task"
+        android:layout_below="@+id/duedate_title"
+        android:layout_marginTop="74dp"
+        android:text="@string/task_category"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+    <Spinner
+        android:id="@+id/category_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/task_category"
+        android:layout_alignLeft="@+id/add_new_task"
+        android:layout_alignStart="@+id/add_new_task"
+        />
+
+
 
 </RelativeLayout>
