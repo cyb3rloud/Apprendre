@@ -33,16 +33,7 @@
                 android:layout_marginBottom="80dp"
                 android:layout_marginLeft="20dp"/>
 
-            <Button
-                android:id="@+id/add_task_done"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/overview_subj"
-                android:background="@android:color/holo_green_light"
-                android:text="Add new task"
-                android:textColor="@android:color/white"
-                android:textSize="18sp"
-                tools:textAllCaps="false" />
+
 
         </RelativeLayout>
 
@@ -255,9 +246,19 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
 
-
+        <Button
+            android:id="@+id/add_task_done"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_green_light"
+            android:text="Add new task"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            tools:textAllCaps="false" />
 
     </LinearLayout>
 
