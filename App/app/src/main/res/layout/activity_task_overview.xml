@@ -26,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:layout_marginBottom="40dp"
+                android:layout_marginBottom="80dp"
                 android:layout_marginLeft="20dp"/>
 
             <Button
@@ -66,8 +66,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_margin="0dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="25dp"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="40dp"
                     android:background="@android:color/holo_blue_light"
                     android:orientation="vertical">
 
@@ -109,8 +109,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_margin="0dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="25dp"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="40dp"
                     android:background="@android:color/holo_red_light"
                     android:orientation="vertical">
 
