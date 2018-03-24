@@ -7,10 +7,13 @@ import android.view.View;
 
 public class SubjectListActivity extends AppCompatActivity {
 
+    DatabaseHelper myDB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subject_list);
+        myDB = new DatabaseHelper(this);
     }
 
     /** Called when user clicks + button **/
