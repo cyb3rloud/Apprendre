@@ -17,6 +17,9 @@ import java.util.Calendar;
 
 public class NewTaskActivity extends AppCompatActivity {
 
+    private static final String TAG = "NewTaskActivity";
+    DatabaseHelper myDB;
+
     Spinner spinner;
     ArrayAdapter<CharSequence> adapter; //need to use cursorAdapter for database
 
@@ -24,28 +27,14 @@ public class NewTaskActivity extends AppCompatActivity {
     int year_x,month_x,day_x;
     static final int DIALOG_ID = 0;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_task);
+        myDB = new DatabaseHelper(this);
 
-        spinner = findViewById(R.id.category_spinner);
-        adapter = ArrayAdapter.createFromResource(this,R.array.categories, R.layout.spinner_cat);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                Toast.makeText(getBaseContext(), parent.getItemAtPosition(position)+" selected",Toast.LENGTH_LONG).show();
-                
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
 
         final Calendar cal = Calendar.getInstance();
