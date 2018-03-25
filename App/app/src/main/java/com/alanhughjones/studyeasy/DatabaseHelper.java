@@ -1,5 +1,6 @@
 package com.alanhughjones.studyeasy;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -17,7 +18,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
-        SQLiteDatabase db = this.getWritableDatabase(); // just for testing
     }
 
     @Override
@@ -29,5 +29,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
             db.execSQL("drop table if exists " + TABLE_NAME);
             onCreate(db);
+    }
+
+    public boolean insertSubject(String subject) {
+        SQLiteDatabase db = this.getWritableDatabase(); // just for testing
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(SUBJECT_NAME,subject);
+        long result = db.insert(TABLE_NAME,null,contentValues);
+        if (result == -1)
+            return false;
+        else
+            return true;
     }
 }
