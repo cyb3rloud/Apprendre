@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -38,6 +39,30 @@ public class SubjectListActivity extends AppCompatActivity {
         }
         ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,listSubjects);
         subjectListView.setAdapter(adapter);
+
+        //set an onItemClickListener to the ListView
+        subjectListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String subject = adapterView.getItemAtPosition(i).toString();
+                Log.d(TAG, "onItemClick: You Clicked on " + subject);
+
+                Cursor data = myDB.getItemID(subject); //get the id associated with that name
+                int itemID = -1;
+                while (data.moveToNext()){
+                    itemID = data.getInt(0);
+                }
+                if (itemID > -1){
+                    Log.d(TAG,"onItemClick: The ID is: " + itemID);
+                    Intent taskOverview = new Intent(SubjectListActivity.this, TaskOverviewActivity.class);
+                    taskOverview.putExtra("id",itemID);
+                    taskOverview.putExtra("name",subject);
+                    startActivity(taskOverview);
+                } else {
+                    toastMessage("No ID associated with that name");
+                }
+            }
+        });
     }
 
     /** Called when user clicks + button **/

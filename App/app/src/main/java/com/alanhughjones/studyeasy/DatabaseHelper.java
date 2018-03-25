@@ -55,4 +55,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor result = db.rawQuery(query,null);
         return result;
     }
+
+    // Returns only the ID that matches the subject passed in
+    public Cursor getItemID(String subj_name){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT " + SUBJECT_ID  + " FROM " + TABLE_NAME +
+                " WHERE " + SUBJECT_NAME + " = '" + subj_name + "'";
+        Cursor data = db.rawQuery(query, null);
+        return data;
+    }
 }
