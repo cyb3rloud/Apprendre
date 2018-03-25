@@ -97,29 +97,4 @@
         android:textColor="@android:color/background_light"
         tools:textAllCaps="false" />
 
-    <TextView
-        android:id="@+id/task_category"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/add_new_task"
-        android:layout_alignStart="@+id/add_new_task"
-        android:layout_below="@+id/duedate_title"
-        android:layout_marginTop="74dp"
-        android:text="@string/task_category"
-        android:textColor="@android:color/black"
-        android:textSize="18sp" />
-
-    <Spinner
-        android:id="@+id/category_spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:layout_marginTop="5dp"
-        android:layout_below="@+id/task_category"
-        android:layout_alignLeft="@+id/add_new_task"
-        android:layout_alignStart="@+id/add_new_task"
-        />
-
-
-
 </RelativeLayout>
