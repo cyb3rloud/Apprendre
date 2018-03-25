@@ -37,7 +37,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //SQL statement of the task table creation
     private static final String SQL_CREATE_TABLE_TASKS = "CREATE TABLE " + TASK_TABLE + " ("
-            + TASK_ID + " INTEGER PRIMARY KEY AUTOINCREMNT"
+            + TASK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT)"; // FINISH IMPLEMENTING SECOND TABLE - use video (Android SQLite Tutorial for Beginners - Creating Tables #1
 
 
     public DatabaseHelper(Context context) {
@@ -47,7 +47,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_TABLE_SUBJECTS);
-        db.execSQL("create table " + TASK_TABLE + " (" + );
+        db.execSQL(SQL_CREATE_TABLE_TASKS);
     }
 
     @Override
