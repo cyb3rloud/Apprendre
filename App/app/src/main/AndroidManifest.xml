@@ -16,6 +16,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".SubjectAddActivity"
+            android:parentActivityName=".SubjectListActivity">
+
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".SubjectListActivity" />
+        </activity>
+        <activity android:name=".NewTaskActivity" />
+        <activity android:name=".TaskOverviewActivity"></activity>
     </application>
 
 </manifest>

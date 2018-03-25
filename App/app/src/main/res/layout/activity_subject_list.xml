@@ -1,18 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/stripedbackground"
+    android:visibility="visible"
     tools:context="com.alanhughjones.studyeasy.SubjectListActivity">
 
+    <Button
+        android:id="@+id/addSubjButton"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="24dp"
+        android:background="@android:drawable/ic_menu_add"
+        android:textColor="@android:color/white"
+        tools:layout_editor_absoluteX="148dp"
+        tools:layout_editor_absoluteY="425dp"
+        android:onClick="openAddSubject"/>
+
     <TextView
+        android:id="@+id/addSubjTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_above="@+id/addSubjButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="11dp"
+        android:text="@string/add_subj_txt"
+        android:textColor="@android:color/white"
+        android:textSize="24sp" />
 
-</android.support.constraint.ConstraintLayout>
+    <ImageView
+        android:id="@+id/main_logo"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="41dp"
+        android:contentDescription="@string/study_ease_app_logo"
+        app:srcCompat="@drawable/study_ease_logo" />
+
+</RelativeLayout>

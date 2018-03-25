@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">Study Easy</string>
+    <string name="add_subj_txt">Add a subject</string>
+    <string name="study_ease_app_logo">Study Easy app logo</string>
+    <string name="add_subject">Add Subject</string>
+    <string name="enter_subject">Please enter a class/subject:</string>
+    <string name="done">Done</string>
+    <string name="new_task">New Task</string>
+    <string name="task_name_input">Task Name:</string>
+    <string name="duedate_input">Due Date:</string>
+    <string name="choose_date">Choose date</string>
+    <string name="task_category">Choose a category:</string>
+    <string-array name="categories">
+        <item>Homework</item>
+        <item>Project</item>
+        <item>Demo</item>
+        <item>Test</item>
+    </string-array>
 </resources>
