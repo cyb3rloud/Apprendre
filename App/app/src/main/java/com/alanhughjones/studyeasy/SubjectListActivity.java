@@ -7,6 +7,8 @@ import android.view.View;
 
 public class SubjectListActivity extends AppCompatActivity {
 
+    DatabaseHelper myDB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

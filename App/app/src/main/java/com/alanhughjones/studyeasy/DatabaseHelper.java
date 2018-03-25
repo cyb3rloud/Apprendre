@@ -2,14 +2,18 @@ package com.alanhughjones.studyeasy;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /**
  * Created by alanh on 24/03/2018.
  */
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+
+    private static final String TAG = "DatabaseHelper";
 
     public static final String DATABASE_NAME = "tasks.db";
     public static final String TABLE_NAME = "subject_table";
@@ -35,10 +39,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase(); // just for testing
         ContentValues contentValues = new ContentValues();
         contentValues.put(SUBJECT_NAME,subject);
+
+        Log.d(TAG, "insertSubject: Adding " + subject + " to " + TABLE_NAME);
+
         long result = db.insert(TABLE_NAME,null,contentValues);
         if (result == -1)
             return false;
         else
             return true;
+    }
+
+    public Cursor getAllData() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor result = db.rawQuery("select * from " + TABLE_NAME,null);
+        return result;
     }
 }
