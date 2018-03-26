@@ -28,17 +28,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String TASK_SUBJECT_ID = "subject_id_fk";
 
     private static final String DATABASE_NAME = "tasks.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     //SQL statement of the subjects table creation
     private static final String SQL_CREATE_TABLE_SUBJECTS = "CREATE TABLE " + SUBJECT_TABLE + " ("
             + SUBJECT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + SUBJECT_NAME + " TEXT )";
+            + SUBJECT_NAME + " TEXT);";
 
     //SQL statement of the task table creation
     private static final String SQL_CREATE_TABLE_TASKS = "CREATE TABLE " + TASK_TABLE + " ("
-            + TASK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT)"; // FINISH IMPLEMENTING SECOND TABLE - use video (Android SQLite Tutorial for Beginners - Creating Tables #1
-
+            + TASK_ID + " INTEGER AUTOINCREMENT, "
+            + TASK_SUBJECT_ID + " INTEGER AUTOINCREMENT, "
+            + TASK_DESC + " TEXT, "
+            + TASK_DATE + " REAL, "
+            + "PRIMARY KEY (" + TASK_ID + ", " + TASK_SUBJECT_ID + ") ,"
+            + "FOREIGN KEY(" + TASK_SUBJECT_ID + ") REFERENCES " + SUBJECT_TABLE + "(" + SUBJECT_ID + "));";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -52,6 +56,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
+            db.execSQL("drop table if exists " + TASK_TABLE);
             db.execSQL("drop table if exists " + SUBJECT_TABLE);
             onCreate(db);
     }
