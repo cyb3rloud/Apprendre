@@ -20,8 +20,8 @@ public class NewTaskActivity extends AppCompatActivity {
     private static final String TAG = "NewTaskActivity";
     DatabaseHelper myDB;
 
-    Spinner spinner;
-    ArrayAdapter<CharSequence> adapter; //need to use cursorAdapter for database
+    //Spinner spinner;
+    //ArrayAdapter<CharSequence> adapter; //need to use cursorAdapter for database
 
     Button datePick;
     int year_x,month_x,day_x;

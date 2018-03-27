@@ -37,7 +37,7 @@ public class SubjectListActivity extends AppCompatActivity {
         while (subjects.moveToNext()){
             listSubjects.add(subjects.getString(1));
         }
-        ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,listSubjects);
+        ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_selectable_list_item,listSubjects);
         subjectListView.setAdapter(adapter);
 
         //set an onItemClickListener to the ListView
@@ -66,10 +66,11 @@ public class SubjectListActivity extends AppCompatActivity {
     }
 
     /** Called when user clicks + button **/
-    public void openAddSubject(View view) {
-        // Open subject 'add activity' when button is clicked
-        Intent intent = new Intent(this, SubjectAddActivity.class); // change back to SubjectAddActivity
-        startActivity(intent);
+    public void openAddSubject(View view){
+
+            // Open subject 'add activity' when button is clicked
+            Intent intent = new Intent(this, SubjectAddActivity.class); // change back to SubjectAddActivity
+            startActivity(intent);
     }
 
     private void toastMessage(String message){

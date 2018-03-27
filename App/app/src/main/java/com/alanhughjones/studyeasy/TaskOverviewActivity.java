@@ -3,6 +3,7 @@ package com.alanhughjones.studyeasy;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,9 +29,18 @@ public class TaskOverviewActivity extends AppCompatActivity {
         btnAddTask = findViewById(R.id.add_task_done);
         myDB = new DatabaseHelper(this);
 
+        btnAddTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent newTask = new Intent(TaskOverviewActivity.this,NewTaskActivity.class);
+                newTask.putExtra("id",selectedID);
+                startActivity(newTask);
+            }
+        });
+
         // get the intent extra from the SubjectListActivity
         Intent receivedIntent = getIntent();
-        //now get the subjectID we passed as and extra
+        //now get the subjectID we passed as an extra
         selectedID = receivedIntent.getIntExtra("id",-1);
         //now get the name we passed as an extra
         selectedSubject = receivedIntent.getStringExtra("name");

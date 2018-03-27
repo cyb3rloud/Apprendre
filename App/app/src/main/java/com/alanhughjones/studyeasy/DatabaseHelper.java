@@ -16,29 +16,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TAG = "DatabaseHelper";
 
     // columns of the subject table
-    public static final String SUBJECT_TABLE = "subject_table";
-    public static final String SUBJECT_ID = "SUBJECT_ID";
-    public static final String SUBJECT_NAME = "SUBJECT_NAME";
+    private static final String SUBJECT_TABLE = "subject_table";
+    private static final String SUBJECT_ID = "SUBJECT_ID";
+    private static final String SUBJECT_NAME = "SUBJECT_NAME";
 
     // columns of the task table
-    public static final String TASK_TABLE = "task_table";
-    public static final String TASK_ID = "task_id";
-    public static final String TASK_DESC = "task_desc";
-    public static final String TASK_DATE = "task_date";
-    public static final String TASK_SUBJECT_ID = "subject_id_fk";
+    private static final String TASK_TABLE = "task_table";
+    private static final String TASK_ID = "task_id";
+    private static final String TASK_DESC = "task_desc";
+    private static final String TASK_DATE = "task_date";
+    private static final String TASK_SUBJECT_ID = "subject_id_fk";
 
     private static final String DATABASE_NAME = "tasks.db";
     private static final int DATABASE_VERSION = 2;
 
     //SQL statement of the subjects table creation
     private static final String SQL_CREATE_TABLE_SUBJECTS = "CREATE TABLE " + SUBJECT_TABLE + " ("
-            + SUBJECT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + SUBJECT_NAME + " VARCHAR )";
+            + SUBJECT_ID + " INTEGER PRIMARY KEY, "
+            + SUBJECT_NAME + " VARCHAR NOT NULL )";
 
     //SQL statement of the task table creation
     private static final String SQL_CREATE_TABLE_TASKS = "CREATE TABLE " + TASK_TABLE + " ("
-            + TASK_ID + " INTEGER NOT NULL AUTOINCREMENT, "
-            + TASK_SUBJECT_ID + " INTEGER NOT NULL AUTOINCREMENT, "
+            + TASK_ID + " INTEGER NOT NULL, "
+            + TASK_SUBJECT_ID + " INTEGER NOT NULL, "
             + TASK_DESC + " TEXT NOT NULL, "
             + TASK_DATE + " DATE NOT NULL, "
             + "PRIMARY KEY(" + TASK_ID + "," + TASK_SUBJECT_ID + "), "
