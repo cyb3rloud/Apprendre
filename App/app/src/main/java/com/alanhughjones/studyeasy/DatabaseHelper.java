@@ -33,11 +33,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //SQL statement of the subjects table creation
     private static final String SQL_CREATE_TABLE_SUBJECTS = "CREATE TABLE " + SUBJECT_TABLE + " ("
             + SUBJECT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + SUBJECT_NAME + " TEXT )";
+            + SUBJECT_NAME + " VARCHAR )";
 
     //SQL statement of the task table creation
     private static final String SQL_CREATE_TABLE_TASKS = "CREATE TABLE " + TASK_TABLE + " ("
-            + TASK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT)"; // FINISH IMPLEMENTING SECOND TABLE - use video (Android SQLite Tutorial for Beginners - Creating Tables #1
+            + TASK_ID + " INTEGER NOT NULL AUTOINCREMENT, "
+            + TASK_SUBJECT_ID + " INTEGER NOT NULL AUTOINCREMENT, "
+            + TASK_DESC + " TEXT NOT NULL, "
+            + TASK_DATE + " DATE NOT NULL, "
+            + "PRIMARY KEY(" + TASK_ID + "," + TASK_SUBJECT_ID + "), "
+            + "FOREIGN KEY(" + TASK_SUBJECT_ID + ") REFERENCES " + SUBJECT_TABLE + " (" + SUBJECT_ID + "));";
+
+    /*
+    * CREATE TABLE TASK_TABLE (
+    *   TASK_ID INTEGER NOT NULL AUTOINCREMENT,
+    *   TASK_SUBJECT_ID INTEGER NOT NULL AUTOINCREMENT,
+    *   TASK_DESC TEXT NOT NULL,
+    *   TASK_DATE DATE NOT NULL,
+    *   PRIMARY KEY(TASK_ID,TASK_SUBJECT_ID),
+    *   FOREIGN KEY(TASK_SUBJECT_ID) REFERENCES SUBJECT_TABLE(SUBJECT_ID));
+    *
+    *
+    * */
 
 
     public DatabaseHelper(Context context) {
