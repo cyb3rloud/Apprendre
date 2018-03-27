@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-
+import android.widget.Toast;
 /**
  * Created by alanh on 24/03/2018.
  */
@@ -28,29 +28,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TASK_SUBJECT_ID = "subject_id_fk";
 
     private static final String DATABASE_NAME = "tasks.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 4;
 
     //SQL statement of the subjects table creation
     private static final String SQL_CREATE_TABLE_SUBJECTS = "CREATE TABLE " + SUBJECT_TABLE + " ("
-            + SUBJECT_ID + " INTEGER PRIMARY KEY, "
+            + SUBJECT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + SUBJECT_NAME + " VARCHAR NOT NULL )";
 
     //SQL statement of the task table creation
     private static final String SQL_CREATE_TABLE_TASKS = "CREATE TABLE " + TASK_TABLE + " ("
-            + TASK_ID + " INTEGER NOT NULL, "
-            + TASK_SUBJECT_ID + " INTEGER NOT NULL, "
-            + TASK_DESC + " TEXT NOT NULL, "
-            + TASK_DATE + " DATE NOT NULL, "
-            + "PRIMARY KEY(" + TASK_ID + "," + TASK_SUBJECT_ID + "), "
+            + TASK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + TASK_SUBJECT_ID + " INTEGER, "
+            + TASK_DESC + " TEXT, "
+            + TASK_DATE + " TEXT, "
             + "FOREIGN KEY(" + TASK_SUBJECT_ID + ") REFERENCES " + SUBJECT_TABLE + " (" + SUBJECT_ID + "));";
 
     /*
     * CREATE TABLE TASK_TABLE (
-    *   TASK_ID INTEGER NOT NULL AUTOINCREMENT,
-    *   TASK_SUBJECT_ID INTEGER NOT NULL AUTOINCREMENT,
-    *   TASK_DESC TEXT NOT NULL,
-    *   TASK_DATE DATE NOT NULL,
-    *   PRIMARY KEY(TASK_ID,TASK_SUBJECT_ID),
+    *   TASK_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    *   TASK_SUBJECT_ID INTEGER,
+    *   TASK_DESC TEXT,
+    *   TASK_DATE TEXT,
     *   FOREIGN KEY(TASK_SUBJECT_ID) REFERENCES SUBJECT_TABLE(SUBJECT_ID));
     *
     *
@@ -83,6 +81,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Log.d(TAG, "insertSubject: Adding " + subject + " to " + SUBJECT_TABLE);
 
         long result = db.insert(SUBJECT_TABLE,null,contentValues);
+        if (result == -1)
+            return false;
+        else
+            return true;
+    }
+
+    public boolean insertTask(String dbTaskDate, String dbTaskDesc, int dbSubjID) {
+        SQLiteDatabase db = this.getWritableDatabase(); // just for testing
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(TASK_SUBJECT_ID,dbSubjID);
+        contentValues.put(TASK_DESC,dbTaskDesc);
+        contentValues.put(TASK_DATE,dbTaskDate);
+
+        Log.d(TAG, "insertSubject: Adding " + dbTaskDesc + " to " + TASK_TABLE);
+
+        long result = db.insert(TASK_TABLE,null,contentValues);
         if (result == -1)
             return false;
         else

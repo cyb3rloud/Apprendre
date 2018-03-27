@@ -16,7 +16,7 @@ public class TaskOverviewActivity extends AppCompatActivity {
     private Button btnAddTask;
 
     DatabaseHelper myDB;
-    // testing commit branch
+
     private String selectedSubject;
     private int selectedID;
 
