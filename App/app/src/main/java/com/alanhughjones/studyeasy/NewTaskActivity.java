@@ -31,6 +31,7 @@ public class NewTaskActivity extends AppCompatActivity {
     private EditText taskName;
     static final int DIALOG_ID = 0;
     private int selectedID;
+    private String selectedName;
 
 
 
@@ -45,7 +46,7 @@ public class NewTaskActivity extends AppCompatActivity {
 
         // get the intent extra from the SubjectAddActivity (the id of the subject)
         Intent receivedIntent = getIntent();
-
+        selectedName = receivedIntent.getStringExtra("name");
         //now get the subjectID we passed as an extra
         selectedID = receivedIntent.getIntExtra("id",-1);
 
@@ -55,10 +56,12 @@ public class NewTaskActivity extends AppCompatActivity {
                 String newTask = taskName.getText().toString();
                 if(newTask.length() != 0 && taskDate.length() != 0){
                     addTask(newTask,taskDate,selectedID);
-                    Intent intent = new Intent(NewTaskActivity.this,TaskOverviewActivity.class);
-                    //Toast.makeText(NewTaskActivity.this,"Yes",Toast.LENGTH_LONG).show();
+                    Intent showAllTasks = new Intent(NewTaskActivity.this,TaskOverviewActivity.class);
+                    showAllTasks.putExtra("id",selectedID);
+                    showAllTasks.putExtra("name",selectedName);
+                    startActivity(showAllTasks);
                 } else {
-                    //Toast.makeText(NewTaskActivity.this,"No",Toast.LENGTH_LONG).show();
+                    Toast.makeText(NewTaskActivity.this,"No",Toast.LENGTH_LONG).show();
                 }
             }
         });
