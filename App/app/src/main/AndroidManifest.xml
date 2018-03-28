@@ -25,8 +25,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".SubjectListActivity" />
         </activity>
-        <activity android:name=".NewTaskActivity" />
-        <activity android:name=".TaskOverviewActivity"></activity>
+        <activity
+            android:name=".TaskOverviewActivity"
+            android:parentActivityName=".SubjectListActivity">
+
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".SubjectListActivity" />
+        </activity>
+        <activity android:name=".NewTaskActivity"/>
     </application>
 
 </manifest>
