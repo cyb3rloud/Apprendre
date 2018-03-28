@@ -58,33 +58,35 @@ public class TaskOverviewActivity extends AppCompatActivity {
         //set the text to show the current selected subject
         subjectTitle.setText(selectedSubject);
 
-        populateTaskList(selectedID,selectedSubject);
+        populateTaskList(selectedID);
     }
 
-    private void populateTaskList(int currentID, String currentSubject){
+    private void populateTaskList(int currentID){
         String sub_id = Integer.toString(currentID);
         Log.d(TAG, "populateTaskList: Displaying tasks in the ListView");
-        Cursor tasks = myDB.getTaskData(currentID);
 
+        Cursor tasks = myDB.getTaskData(currentID);
+        taskListView = findViewById(R.id.task_list);
+
+
+        // for testing only (toast)
         String rowCount = Integer.toString(tasks.getCount());
 
         if (tasks.getCount() == 0){
-            Toast.makeText(this, sub_id, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Number of rows: " + rowCount, Toast.LENGTH_LONG).show();
         } else {
-            /*
+            //Toast.makeText(this, "Number of rows: " + rowCount, Toast.LENGTH_LONG).show();
+
+
             ArrayList<String> listTasks = new ArrayList<>();
             while (tasks.moveToNext()) {
-                listTasks.add(tasks.getString(1));
-                ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_selectable_list_item, listTasks);
-                taskListView.setAdapter(adapter);
-            */
-            Toast.makeText(this, "Number of rows: " + rowCount, Toast.LENGTH_SHORT).show();
-
-            //}
+                int i = 0;
+                listTasks.add(tasks.getString(i));
+            }
+            ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_selectable_list_item, listTasks);
+            taskListView.setAdapter(adapter);
         }
     }
 
-    private void toastMessage(String message){
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-    }
+
 }
