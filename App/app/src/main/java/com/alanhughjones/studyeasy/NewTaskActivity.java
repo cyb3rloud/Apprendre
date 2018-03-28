@@ -55,7 +55,7 @@ public class NewTaskActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String newTask = taskName.getText().toString();
                 if(newTask.length() != 0 && taskDate.length() != 0){
-                    addTask(newTask,taskDate,selectedID);
+                    addTask(taskDate,newTask,selectedID);
                     Intent showAllTasks = new Intent(NewTaskActivity.this,TaskOverviewActivity.class);
                     showAllTasks.putExtra("id",selectedID);
                     showAllTasks.putExtra("name",selectedName);
