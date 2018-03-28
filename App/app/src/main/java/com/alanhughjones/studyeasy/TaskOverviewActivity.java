@@ -80,8 +80,7 @@ public class TaskOverviewActivity extends AppCompatActivity {
 
             ArrayList<String> listTasks = new ArrayList<>();
             while (tasks.moveToNext()) {
-                int i = 0;
-                listTasks.add(tasks.getString(i));
+                listTasks.add(tasks.getString(0));
             }
             ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_selectable_list_item, listTasks);
             taskListView.setAdapter(adapter);
