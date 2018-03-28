@@ -97,6 +97,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Log.d(TAG, "insertSubject: Adding " + dbTaskDesc + " to " + TASK_TABLE);
 
         long result = db.insert(TASK_TABLE,null,contentValues);
+        db.close();
         if (result == -1)
             return false;
         else
@@ -110,13 +111,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result;
     }
 
+    /*
     public Cursor getTaskData(int subj_id) {
+        String sub_id = Integer.toString(subj_id);
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT " + TASK_DESC + " FROM " + TASK_TABLE
-                + " WHERE " + TASK_SUBJECT_ID + " = '" + subj_id + "'";
+                String query = "SELECT " + TASK_DESC + " FROM " + TASK_TABLE
+                + " WHERE " + TASK_SUBJECT_ID + " = '" + sub_id + "'";
         Cursor result = db.rawQuery(query, null);
         return result;
     }
+    */
+
+    public Cursor getTaskData(int subj_id){
+
+        String sub_id = Integer.toString(subj_id);
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor result = db.query(TASK_TABLE,
+                new String[] {TASK_DESC},
+                TASK_SUBJECT_ID + " = '"+sub_id+"'",
+                null,
+                null,
+                null,
+                null);
+        return result;
+    }
+
 
     // Returns only the ID that matches the subject passed in
     public Cursor getItemID(String subj_name){
@@ -126,4 +147,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor data = db.rawQuery(query, null);
         return data;
     }
+
+    /*
+    public Cursor countToDo(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT " +
+    }
+    */
 }
