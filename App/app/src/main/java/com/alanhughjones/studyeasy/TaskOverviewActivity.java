@@ -10,10 +10,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class TaskOverviewActivity extends AppCompatActivity {
 
@@ -77,13 +82,35 @@ public class TaskOverviewActivity extends AppCompatActivity {
         } else {
             //Toast.makeText(this, "Number of rows: " + rowCount, Toast.LENGTH_LONG).show();
 
+            // Try using a HashMap
+            HashMap<String, String> taskDetails = new HashMap<>();
+            while (tasks.moveToNext()){
+                taskDetails.put(tasks.getString(0),tasks.getString(1));
+            }
 
+            List<HashMap<String, String>> taskItems = new ArrayList<>();
+            SimpleAdapter adapter = new SimpleAdapter(this, taskItems, R.layout.task_item,
+                    new String[]{"First Line", "Second Line"},
+                    new int[]{R.id.text1,R.id.text2});
+
+            Iterator it = taskDetails.entrySet().iterator();
+            while (it.hasNext()){
+                HashMap<String, String> resultMap = new HashMap<>();
+                Map.Entry pair = (Map.Entry)it.next();
+                resultMap.put("First Line", pair.getKey().toString());
+                resultMap.put("Second Line", pair.getValue().toString());
+                taskItems.add(resultMap);
+            }
+
+            taskListView.setAdapter(adapter);
+            /*
             ArrayList<String> listTasks = new ArrayList<>();
             while (tasks.moveToNext()) {
                 listTasks.add(tasks.getString(0));
             }
             ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_selectable_list_item, listTasks);
             taskListView.setAdapter(adapter);
+            */
         }
     }
 
