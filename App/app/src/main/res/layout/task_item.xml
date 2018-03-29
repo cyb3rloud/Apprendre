@@ -2,21 +2,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    
+
     <TextView
         android:id="@+id/text1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/cardview_dark_background"
         android:textSize="21sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:paddingTop="15sp"/>
 
     <TextView
         android:id="@+id/text2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="16sp"
-        android:textColor="@android:color/holo_green_dark"
-        android:textStyle="bold"/>
+        android:paddingTop="5sp"
+        android:paddingBottom="15sp"
+        android:textStyle="bold" />
 
 </LinearLayout>
