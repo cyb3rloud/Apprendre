@@ -1,7 +1,9 @@
 package com.alanhughjones.studyeasy;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,13 +22,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class TaskOverviewActivity extends AppCompatActivity {
-
-    private static final String TAG = "TaskOverviewActivity";
+public class TaskOverviewActivity extends Activity {
 
     private TextView subjectTitle;
-    private Button btnAddTask;
     private ListView taskListView;
+    private TaskListAdapter adapter;
+    private List<Task> mProductList;
+    private Button btnAddTask;
 
     DatabaseHelper myDB;
 
@@ -34,11 +36,9 @@ public class TaskOverviewActivity extends AppCompatActivity {
     private int selectedID;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_overview);
-
-        taskListView = findViewById(R.id.task_list);
         subjectTitle = findViewById(R.id.overview_subj);
         btnAddTask = findViewById(R.id.add_task_done);
         myDB = new DatabaseHelper(this);
@@ -63,56 +63,38 @@ public class TaskOverviewActivity extends AppCompatActivity {
         //set the text to show the current selected subject
         subjectTitle.setText(selectedSubject);
 
-        populateTaskList(selectedID);
-    }
+        taskListView = (ListView)findViewById(R.id.task_list);
 
-    private void populateTaskList(int currentID){
-        String sub_id = Integer.toString(currentID);
-        Log.d(TAG, "populateTaskList: Displaying tasks in the ListView");
+        mProductList = new ArrayList<>();
 
-        Cursor tasks = myDB.getTaskData(currentID);
-        taskListView = findViewById(R.id.task_list);
+        //Add sample data for list
+        //mProductList.add(new Task(1, "GermanTest1", "2018-4-20"));
+        //mProductList.add(new Task(2, "GermanTest2", "2018-4-21"));
+        //mProductList.add(new Task(3, "GermanTest3", "2018-4-22"));
+        //mProductList.add(new Task(4, "GermanTest4", "2018-4-23"));
 
 
-        // for testing only (toast)
-        String rowCount = Integer.toString(tasks.getCount());
+        // mProductList.add(new Task(1, TASK_DESC, TASK_DATE)
+
+        Cursor tasks = myDB.getTaskData(selectedID);
 
         if (tasks.getCount() == 0){
-            Toast.makeText(this, "Number of rows: " + rowCount, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "No data", Toast.LENGTH_LONG).show();
         } else {
-            //Toast.makeText(this, "Number of rows: " + rowCount, Toast.LENGTH_LONG).show();
 
-            // Try using a HashMap
-            HashMap<String, String> taskDetails = new HashMap<>();
             while (tasks.moveToNext()){
-                taskDetails.put(tasks.getString(0),tasks.getString(1));
+                Toast.makeText(this, "ID: "+ tasks.getString(2), Toast.LENGTH_LONG).show();
+               mProductList.add(new Task(tasks.getInt(0),tasks.getString(1),tasks.getString(2)));
+                //mProductList.add(new Task(1, "GermanTest1", "2018-4-20"));
+                //mProductList.add(new Task(2, "GermanTest2", "2018-4-21"));
+                //mProductList.add(new Task(3, "GermanTest3", "2018-4-22"));
+                //mProductList.add(new Task(4, "GermanTest4", "2018-4-23"));
             }
-
-            List<HashMap<String, String>> taskItems = new ArrayList<>();
-            SimpleAdapter adapter = new SimpleAdapter(this, taskItems, R.layout.task_item,
-                    new String[]{"First Line", "Second Line"},
-                    new int[]{R.id.text1,R.id.text2});
-
-            Iterator it = taskDetails.entrySet().iterator();
-            while (it.hasNext()){
-                HashMap<String, String> resultMap = new HashMap<>();
-                Map.Entry pair = (Map.Entry)it.next();
-                resultMap.put("First Line", pair.getKey().toString());
-                resultMap.put("Second Line", pair.getValue().toString());
-                taskItems.add(resultMap);
-            }
-
-            taskListView.setAdapter(adapter);
-            /*
-            ArrayList<String> listTasks = new ArrayList<>();
-            while (tasks.moveToNext()) {
-                listTasks.add(tasks.getString(0));
-            }
-            ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_selectable_list_item, listTasks);
-            taskListView.setAdapter(adapter);
-            */
         }
+
+
+        //Init adapter
+        adapter = new TaskListAdapter(getApplicationContext(), mProductList);
+        taskListView.setAdapter(adapter);
     }
-
-
 }

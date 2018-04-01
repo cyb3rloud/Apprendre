@@ -129,7 +129,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         Cursor result = db.query(TASK_TABLE,
-                new String[] {TASK_DESC, TASK_DATE},
+                new String[] {TASK_ID, TASK_DESC, TASK_DATE},
                 TASK_SUBJECT_ID + " = '"+sub_id+"'",
                 null,
                 null,
