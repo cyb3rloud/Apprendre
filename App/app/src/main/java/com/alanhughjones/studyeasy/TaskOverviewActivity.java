@@ -16,7 +16,10 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -29,7 +32,8 @@ public class TaskOverviewActivity extends Activity {
     private TaskListAdapter adapter;
     private List<Task> mProductList;
     private Button btnAddTask;
-
+    //private TextView overDue;
+    //private TextView notOverdue;
     DatabaseHelper myDB;
 
     private String selectedSubject;
@@ -67,31 +71,29 @@ public class TaskOverviewActivity extends Activity {
 
         mProductList = new ArrayList<>();
 
-        //Add sample data for list
-        //mProductList.add(new Task(1, "GermanTest1", "2018-4-20"));
-        //mProductList.add(new Task(2, "GermanTest2", "2018-4-21"));
-        //mProductList.add(new Task(3, "GermanTest3", "2018-4-22"));
-        //mProductList.add(new Task(4, "GermanTest4", "2018-4-23"));
-
-
-        // mProductList.add(new Task(1, TASK_DESC, TASK_DATE)
-
         Cursor tasks = myDB.getTaskData(selectedID);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
         if (tasks.getCount() == 0){
             Toast.makeText(this, "No data", Toast.LENGTH_LONG).show();
         } else {
+            while (tasks.moveToNext()) {
+                mProductList.add(new Task(tasks.getInt(0), tasks.getString(1), tasks.getString(2)));
+                Date strDate;
+                try {
+                    strDate = sdf.parse(tasks.getString(2));
+                    if (new Date().after(strDate)){
+                        Toast.makeText(this, "Overdue", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(this, "Upcoming", Toast.LENGTH_LONG).show();
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
 
-            while (tasks.moveToNext()){
-                Toast.makeText(this, "ID: "+ tasks.getString(2), Toast.LENGTH_LONG).show();
-               mProductList.add(new Task(tasks.getInt(0),tasks.getString(1),tasks.getString(2)));
-                //mProductList.add(new Task(1, "GermanTest1", "2018-4-20"));
-                //mProductList.add(new Task(2, "GermanTest2", "2018-4-21"));
-                //mProductList.add(new Task(3, "GermanTest3", "2018-4-22"));
-                //mProductList.add(new Task(4, "GermanTest4", "2018-4-23"));
             }
         }
-
 
         //Init adapter
         adapter = new TaskListAdapter(getApplicationContext(), mProductList);

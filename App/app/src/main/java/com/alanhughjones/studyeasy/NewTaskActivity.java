@@ -101,7 +101,7 @@ public class NewTaskActivity extends AppCompatActivity {
             year_x = year;
             month_x = monthOfYear+1;
             day_x = dayOfMonth;
-            taskDate = year_x + "-" + month_x + "-" + day_x;
+            taskDate = day_x + "-" + month_x + "-" + year_x;
             Toast.makeText(NewTaskActivity.this, day_x + "/" + month_x + "/" + year_x, Toast.LENGTH_SHORT).show();
         }
     };
