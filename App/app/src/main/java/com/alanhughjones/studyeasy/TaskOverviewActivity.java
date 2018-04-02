@@ -32,9 +32,11 @@ public class TaskOverviewActivity extends Activity {
     private TaskListAdapter adapter;
     private List<Task> mProductList;
     private Button btnAddTask;
-    //private TextView overDue;
-    //private TextView notOverdue;
+    private TextView overDue;
+    private TextView notOverdue;
     DatabaseHelper myDB;
+    public int taskCnt;
+    public int taskCntO;
 
     private String selectedSubject;
     private int selectedID;
@@ -45,7 +47,11 @@ public class TaskOverviewActivity extends Activity {
         setContentView(R.layout.activity_task_overview);
         subjectTitle = findViewById(R.id.overview_subj);
         btnAddTask = findViewById(R.id.add_task_done);
+        overDue = findViewById(R.id.overdue_count);
+        notOverdue = findViewById(R.id.task_count);
         myDB = new DatabaseHelper(this);
+        taskCnt = 0;
+        taskCntO = 0;
 
         btnAddTask.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +77,7 @@ public class TaskOverviewActivity extends Activity {
 
         mProductList = new ArrayList<>();
 
+
         Cursor tasks = myDB.getTaskData(selectedID);
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -85,15 +92,26 @@ public class TaskOverviewActivity extends Activity {
                     strDate = sdf.parse(tasks.getString(2));
                     if (new Date().after(strDate)){
                         Toast.makeText(this, "Overdue", Toast.LENGTH_LONG).show();
+                        taskCntO += 1;
                     } else {
                         Toast.makeText(this, "Upcoming", Toast.LENGTH_LONG).show();
+                        taskCnt +=1;
                     }
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
 
             }
+
+            //Set count total
+            overDue.setText(Integer.toString(taskCntO));
+            notOverdue.setText(Integer.toString(taskCnt));
+
         }
+
+        //Set count total
+        //overDue.setText(taskCntO);
+        //notOverdue.setText(taskCnt);
 
         //Init adapter
         adapter = new TaskListAdapter(getApplicationContext(), mProductList);
