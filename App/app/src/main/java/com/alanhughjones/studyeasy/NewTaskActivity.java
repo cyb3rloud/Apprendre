@@ -57,7 +57,7 @@ public class NewTaskActivity extends AppCompatActivity {
                     showAllTasks.putExtra("name",selectedName);
                     startActivity(showAllTasks);
                 } else {
-                    Toast.makeText(NewTaskActivity.this,"No",Toast.LENGTH_LONG).show();
+                    Toast.makeText(NewTaskActivity.this,"Please enter a date",Toast.LENGTH_LONG).show();
                 }
             }
         });
