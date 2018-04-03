@@ -138,6 +138,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result;
     }
 
+    public Cursor getSingleTask(String task_id){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor task = db.query(TASK_TABLE,
+                new String[] {TASK_DESC, TASK_DATE},
+                TASK_ID + " = '"+task_id+"'",
+                null,
+                null,
+                null,
+                null);
+
+        return task;
+    }
 
     // Returns only the ID that matches the subject passed in
     public Cursor getItemID(String subj_name){

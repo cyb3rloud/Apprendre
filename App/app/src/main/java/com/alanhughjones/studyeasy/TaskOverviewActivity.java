@@ -1,19 +1,15 @@
 package com.alanhughjones.studyeasy;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,10 +17,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 public class TaskOverviewActivity extends AppCompatActivity {
 
@@ -77,6 +70,9 @@ public class TaskOverviewActivity extends AppCompatActivity {
         mProductList = new ArrayList<>();
         Cursor tasks = myDB.getTaskData(selectedID);
 
+
+
+
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
         if (tasks.getCount() == 0){
@@ -112,8 +108,9 @@ public class TaskOverviewActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent editTask = new Intent(TaskOverviewActivity.this,EditTaskActivity.class);
-                editTask.putExtra("id",selectedID);
-                editTask.putExtra("name",selectedSubject);
+                Object taskID = view.getTag();
+                editTask.putExtra("taskID",taskID.toString());
+                editTask.putExtra("subID",selectedID);
                 startActivity(editTask);
                 //Toast.makeText(getApplicationContext(), "Task ID = " + view.getTag(), Toast.LENGTH_SHORT).show();
             }
