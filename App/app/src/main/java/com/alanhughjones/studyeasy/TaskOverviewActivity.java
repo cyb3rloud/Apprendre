@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
@@ -25,7 +26,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class TaskOverviewActivity extends Activity {
+public class TaskOverviewActivity extends AppCompatActivity {
 
     private TextView subjectTitle;
     private ListView taskListView;
@@ -106,6 +107,17 @@ public class TaskOverviewActivity extends Activity {
         //Init adapter
         adapter = new TaskListAdapter(getApplicationContext(), mProductList);
         taskListView.setAdapter(adapter);
+
+        taskListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent editTask = new Intent(TaskOverviewActivity.this,EditTaskActivity.class);
+                editTask.putExtra("id",selectedID);
+                editTask.putExtra("name",selectedSubject);
+                startActivity(editTask);
+                //Toast.makeText(getApplicationContext(), "Task ID = " + view.getTag(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     // Comparator for Descending Date

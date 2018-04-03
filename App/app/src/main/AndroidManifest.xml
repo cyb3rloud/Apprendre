@@ -34,7 +34,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".SubjectListActivity" />
         </activity>
-        <activity android:name=".NewTaskActivity"/>
+        <activity android:name=".NewTaskActivity" />
+        <activity android:name=".EditTaskActivity"></activity>
     </application>
 
 </manifest>
