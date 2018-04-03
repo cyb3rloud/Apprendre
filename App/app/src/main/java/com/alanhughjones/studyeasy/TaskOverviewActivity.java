@@ -72,18 +72,14 @@ public class TaskOverviewActivity extends Activity {
 
         //set the text to show the current selected subject
         subjectTitle.setText(selectedSubject);
-
         taskListView = (ListView)findViewById(R.id.task_list);
-
         mProductList = new ArrayList<>();
-
-
         Cursor tasks = myDB.getTaskData(selectedID);
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
         if (tasks.getCount() == 0){
-            Toast.makeText(this, "No data", Toast.LENGTH_LONG).show();
+            return;
         } else {
             while (tasks.moveToNext()) {
                 mProductList.add(new Task(tasks.getInt(0), tasks.getString(1), tasks.getString(2)));
@@ -91,10 +87,8 @@ public class TaskOverviewActivity extends Activity {
                 try {
                     strDate = sdf.parse(tasks.getString(2));
                     if (new Date().after(strDate)){
-                        Toast.makeText(this, "Overdue", Toast.LENGTH_LONG).show();
                         taskCntO += 1;
                     } else {
-                        Toast.makeText(this, "Upcoming", Toast.LENGTH_LONG).show();
                         taskCnt +=1;
                     }
                 } catch (ParseException e) {
@@ -102,19 +96,17 @@ public class TaskOverviewActivity extends Activity {
                 }
 
             }
-
             //Set count total
             overDue.setText(Integer.toString(taskCntO));
             notOverdue.setText(Integer.toString(taskCnt));
 
+            // Sort arrayList
+            // #############
         }
-
-        //Set count total
-        //overDue.setText(taskCntO);
-        //notOverdue.setText(taskCnt);
-
         //Init adapter
         adapter = new TaskListAdapter(getApplicationContext(), mProductList);
         taskListView.setAdapter(adapter);
     }
+
+    // Comparator for Descending Date
 }

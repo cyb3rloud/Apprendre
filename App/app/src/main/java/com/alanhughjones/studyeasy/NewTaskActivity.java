@@ -27,12 +27,11 @@ public class NewTaskActivity extends AppCompatActivity {
     private Button datePick;
     private Button addTaskDone;
     int year_x,month_x,day_x;
-    private String taskDate;
+    private String taskDate = "";
     private EditText taskName;
     static final int DIALOG_ID = 0;
     private int selectedID;
     private String selectedName;
-
 
 
     @Override
@@ -42,7 +41,6 @@ public class NewTaskActivity extends AppCompatActivity {
         myDB = new DatabaseHelper(this);
         addTaskDone = findViewById(R.id.add_task_done);
         taskName = findViewById(R.id.input_task);
-
 
         // get the intent extra from the SubjectAddActivity (the id of the subject)
         Intent receivedIntent = getIntent();
