@@ -167,6 +167,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.delete(TASK_TABLE, TASK_ID + " = ?",new String[]{taskID});
     }
 
+    public boolean updateTask(String subj_id, String task_id, String task_desc, String task_date ){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(TASK_ID,task_id);
+        contentValues.put(TASK_DESC,task_desc);
+        contentValues.put(TASK_DATE,task_date);
+        db.update(TASK_TABLE, contentValues, TASK_ID +" = ? AND " + TASK_SUBJECT_ID+" = ?", new String[] {task_id,subj_id});
+        return true;
+    }
     /*
     public Cursor countToDo(){
         SQLiteDatabase db = this.getWritableDatabase();

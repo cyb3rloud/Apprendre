@@ -92,6 +92,7 @@ public class EditTaskActivity extends AppCompatActivity {
         day_x = cal.get(Calendar.DAY_OF_MONTH);
 
         showDialogOnInputClick(taskDate);
+        UpdateTask();
     }
 
     public void showDialogOnInputClick(String taskDate) {
@@ -122,7 +123,29 @@ public class EditTaskActivity extends AppCompatActivity {
             month_x = monthOfYear+1;
             day_x = dayOfMonth;
             taskDate = day_x + "-" + month_x + "-" + year_x;
-            Toast.makeText(EditTaskActivity.this, day_x + "/" + month_x + "/" + year_x, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(EditTaskActivity.this, day_x + "/" + month_x + "/" + year_x, Toast.LENGTH_SHORT).show();
         }
     };
+
+    public void UpdateTask(){
+        editTaskDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String updatedDesc = taskName.getText().toString();
+                String sSubId = Integer.toString(selectedSubID);
+                if(updatedDesc.length() != 0 && taskDate.length() != 0) {
+                    boolean isUpdated = myDB.updateTask(sSubId, selectedTaskId, updatedDesc, taskDate);
+                    if(isUpdated==true){
+                        Toast.makeText(EditTaskActivity.this, "Task Updated", Toast.LENGTH_LONG).show();
+                        Intent showAllTasks = new Intent(EditTaskActivity.this,TaskOverviewActivity.class);
+                        showAllTasks.putExtra("id",selectedSubID);
+                        showAllTasks.putExtra("name",selectedSubName);
+                        startActivity(showAllTasks);
+                    } else {
+                        Toast.makeText(EditTaskActivity.this, "Task not updated", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+        });
+    }
 }
