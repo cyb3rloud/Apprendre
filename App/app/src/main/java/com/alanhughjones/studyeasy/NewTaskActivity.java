@@ -21,6 +21,7 @@ public class NewTaskActivity extends AppCompatActivity {
     private static final String TAG = "NewTaskActivity";
     DatabaseHelper myDB;
 
+
     private Button datePick;
     private Button addTaskDone;
     int year_x,month_x,day_x;

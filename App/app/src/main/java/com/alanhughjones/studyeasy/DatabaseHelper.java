@@ -162,6 +162,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return data;
     }
 
+    public Integer deleteTask(String taskID){
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(TASK_TABLE, TASK_ID + " = ?",new String[]{taskID});
+    }
+
     /*
     public Cursor countToDo(){
         SQLiteDatabase db = this.getWritableDatabase();

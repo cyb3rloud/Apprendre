@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -22,6 +23,8 @@ public class EditTaskActivity extends AppCompatActivity {
     static final int DIALOG_ID = 0;
     private int selectedSubID;
     private String selectedTaskId;
+    private String selectedSubName;
+    private Button deleteTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,7 @@ public class EditTaskActivity extends AppCompatActivity {
         myDB = new DatabaseHelper(this);
         editTaskDone = findViewById(R.id.edit_task_done);
         taskName = findViewById(R.id.edit_task_input);
+        deleteTask = findViewById(R.id.delete_task);
 
         // get the intent extra from the SubjectAddActivity (the id of the subject)
         Intent receivedIntent = getIntent();
@@ -37,15 +41,27 @@ public class EditTaskActivity extends AppCompatActivity {
         selectedTaskId = receivedIntent.getStringExtra("taskID");
         //now get the subjectID we passed as an extra
         selectedSubID = receivedIntent.getIntExtra("subID",-1);
+        //get name of subject for when moving back to overview
+        selectedSubName = receivedIntent.getStringExtra("name");
 
-        // Set task input field to contain task title
-        //taskName.setText(selectedTaskId);
-
+        // Set task input field to contain task title and date to task date
         Cursor editTask = myDB.getSingleTask(selectedTaskId);
-
         if (editTask.moveToFirst()){
             taskName.setText(editTask.getString(0));
             taskDate = editTask.getString(1);
         }
+
+        // Set onclick listener to delete button
+        deleteTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                myDB.deleteTask(selectedTaskId);
+                Toast.makeText(EditTaskActivity.this,"Task Deleted",Toast.LENGTH_LONG).show();
+                Intent backAllTasks = new Intent(EditTaskActivity.this,TaskOverviewActivity.class);
+                backAllTasks.putExtra("id",selectedSubID);
+                backAllTasks.putExtra("name",selectedSubName);
+                startActivity(backAllTasks);
+            }
+        });
     }
 }

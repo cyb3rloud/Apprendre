@@ -111,6 +111,7 @@ public class TaskOverviewActivity extends AppCompatActivity {
                 Object taskID = view.getTag();
                 editTask.putExtra("taskID",taskID.toString());
                 editTask.putExtra("subID",selectedID);
+                editTask.putExtra("name",selectedSubject);
                 startActivity(editTask);
                 //Toast.makeText(getApplicationContext(), "Task ID = " + view.getTag(), Toast.LENGTH_SHORT).show();
             }
