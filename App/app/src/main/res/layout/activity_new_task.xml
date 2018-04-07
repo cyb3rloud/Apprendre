@@ -81,7 +81,7 @@
         android:layout_below="@+id/duedate_title"
         android:layout_marginTop="15dp"
         android:background="@color/colorPrimary"
-        android:text="@string/change_date"
+        android:text="@string/choose_date"
         android:textColor="@android:color/background_light"
         tools:textAllCaps="false" />
 

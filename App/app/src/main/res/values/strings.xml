@@ -9,7 +9,7 @@
     <string name="task_name_input">Task Name:</string>
     <string name="duedate_input">Due Date:</string>
     <string name="choose_date">Choose date</string>
-    <string name="task_category">Choose a category:</string>
+    <string name="task_category" translatable="false">Choose a category:</string>
     <string name="add_new_task">Add new task</string>
     <string name="edit_task">Edit Task</string>
     <string name="change_date">Change Date</string>
