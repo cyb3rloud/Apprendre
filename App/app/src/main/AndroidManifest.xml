@@ -18,24 +18,19 @@
         </activity>
         <activity
             android:name=".SubjectAddActivity"
-            android:parentActivityName=".SubjectListActivity">
-
-            <!-- The meta-data tag is required if you support API level 15 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".SubjectListActivity" />
-        </activity>
+            android:parentActivityName=".SubjectListActivity"></activity>
         <activity
             android:name=".TaskOverviewActivity"
-            android:parentActivityName=".SubjectListActivity">
-
-            <!-- The meta-data tag is required if you support API level 15 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".SubjectListActivity" />
-        </activity>
-        <activity android:name=".NewTaskActivity" />
-        <activity android:name=".EditTaskActivity"></activity>
+            android:label="Tasks"
+            android:parentActivityName=".SubjectListActivity"></activity>
+        <activity
+            android:name=".NewTaskActivity"
+            android:label="NewTaskActivity"
+            android:parentActivityName=".SubjectListActivity"></activity>
+        <activity
+            android:name=".EditTaskActivity"
+            android:label="Edit Task"
+            android:parentActivityName=".SubjectListActivity"></activity>
     </application>
 
 </manifest>

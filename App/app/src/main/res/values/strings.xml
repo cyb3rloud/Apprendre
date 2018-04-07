@@ -11,6 +11,9 @@
     <string name="choose_date">Choose date</string>
     <string name="task_category">Choose a category:</string>
     <string name="add_new_task">Add new task</string>
+    <string name="edit_task">Edit Task</string>
+    <string name="change_date">Change Date</string>
+    <string name="delete_task">Delete Task</string>
     <string-array name="categories">
         <item>Homework</item>
         <item>Project</item>

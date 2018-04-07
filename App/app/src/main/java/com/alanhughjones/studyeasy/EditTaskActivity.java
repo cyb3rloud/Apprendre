@@ -1,10 +1,8 @@
 package com.alanhughjones.studyeasy;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,27 +11,21 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 public class EditTaskActivity extends AppCompatActivity {
 
-    private static final String TAG = "EditTaskActivity";
     DatabaseHelper myDB;
 
-    private Button datePick;
     private Button editTaskDone;
     int year_x,month_x,day_x;
     private String taskDate = "";
     private EditText taskName;
-    static final int DIALOG_ID = 0;
     private int selectedSubID;
     private String selectedTaskId;
     private String selectedSubName;
-    private Button deleteTask;
+    DatePickerDialog picker;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +34,10 @@ public class EditTaskActivity extends AppCompatActivity {
         myDB = new DatabaseHelper(this);
         editTaskDone = findViewById(R.id.edit_task_done);
         taskName = findViewById(R.id.edit_task_input);
-        deleteTask = findViewById(R.id.delete_task);
+        Button deleteTask = findViewById(R.id.delete_task);
+        Button datePick = findViewById(R.id.edit_datepick_btn);
 
+        UpdateTask();
         // get the intent extra from the SubjectAddActivity (the id of the subject)
         Intent receivedIntent = getIntent();
         // get taskId passed as a String
@@ -73,59 +67,27 @@ public class EditTaskActivity extends AppCompatActivity {
             }
         });
 
-
-        //Set up calendar to show date of task
-        final Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-        Date date = null;
-        if (taskDate.length() > 0) {
-            try {
-                date = sdf.parse(taskDate);
-                cal.setTime(date);
-            } catch (ParseException e) {
-                e.printStackTrace();
+        datePick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar cldr = Calendar.getInstance();
+                day_x = cldr.get(Calendar.DAY_OF_MONTH);
+                month_x = cldr.get(Calendar.MONTH);
+                year_x = cldr.get(Calendar.YEAR);
+                // date picker dialog
+                picker = new DatePickerDialog(EditTaskActivity.this,
+                        new DatePickerDialog.OnDateSetListener(){
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth){
+                                taskDate = dayOfMonth + "-" + (monthOfYear+1) + "-" + year;
+                            }
+                        },year_x,month_x,day_x);
+                picker.show();
             }
-        }
+        });
 
-        year_x = cal.get(Calendar.YEAR);
-        month_x = cal.get(Calendar.MONTH);
-        day_x = cal.get(Calendar.DAY_OF_MONTH);
 
-        showDialogOnInputClick(taskDate);
-        UpdateTask();
     }
-
-    public void showDialogOnInputClick(String taskDate) {
-        datePick = findViewById(R.id.edit_datepick_btn);
-
-        datePick.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showDialog(DIALOG_ID);
-                    }
-                }
-        );
-    }
-
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        if(id == DIALOG_ID)
-            return new DatePickerDialog(this, dpickerListener, year_x, month_x, day_x);
-        return null;
-    }
-
-    private DatePickerDialog.OnDateSetListener dpickerListener
-            = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            year_x = year;
-            month_x = monthOfYear+1;
-            day_x = dayOfMonth;
-            taskDate = day_x + "-" + month_x + "-" + year_x;
-            //Toast.makeText(EditTaskActivity.this, day_x + "/" + month_x + "/" + year_x, Toast.LENGTH_SHORT).show();
-        }
-    };
 
     public void UpdateTask(){
         editTaskDone.setOnClickListener(new View.OnClickListener() {
@@ -135,7 +97,7 @@ public class EditTaskActivity extends AppCompatActivity {
                 String sSubId = Integer.toString(selectedSubID);
                 if(updatedDesc.length() != 0 && taskDate.length() != 0) {
                     boolean isUpdated = myDB.updateTask(sSubId, selectedTaskId, updatedDesc, taskDate);
-                    if(isUpdated==true){
+                    if(isUpdated){
                         Toast.makeText(EditTaskActivity.this, "Task Updated", Toast.LENGTH_LONG).show();
                         Intent showAllTasks = new Intent(EditTaskActivity.this,TaskOverviewActivity.class);
                         showAllTasks.putExtra("id",selectedSubID);

@@ -6,6 +6,7 @@ import android.database.DatabaseUtils;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -18,16 +19,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class TaskOverviewActivity extends AppCompatActivity {
 
-    private TextView subjectTitle;
-    private ListView taskListView;
-    private TaskListAdapter adapter;
-    private List<Task> mProductList;
-    private Button btnAddTask;
-    private TextView overDue;
-    private TextView notOverdue;
     DatabaseHelper myDB;
     public int taskCnt;
     public int taskCntO;
@@ -36,13 +31,16 @@ public class TaskOverviewActivity extends AppCompatActivity {
     private int selectedID;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_overview);
-        subjectTitle = findViewById(R.id.overview_subj);
-        btnAddTask = findViewById(R.id.add_task_done);
-        overDue = findViewById(R.id.overdue_count);
-        notOverdue = findViewById(R.id.task_count);
+        Toolbar toolbar = (Toolbar)findViewById(R.id.edit_task_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        TextView subjectTitle = findViewById(R.id.overview_subj);
+        Button btnAddTask = findViewById(R.id.add_task_done);
+        TextView overDue = findViewById(R.id.overdue_count);
+        TextView notOverdue = findViewById(R.id.task_count);
         myDB = new DatabaseHelper(this);
         taskCnt = 0;
         taskCntO = 0;
@@ -66,14 +64,14 @@ public class TaskOverviewActivity extends AppCompatActivity {
 
         //set the text to show the current selected subject
         subjectTitle.setText(selectedSubject);
-        taskListView = (ListView)findViewById(R.id.task_list);
-        mProductList = new ArrayList<>();
+        ListView taskListView = (ListView) findViewById(R.id.task_list);
+        List<Task> mProductList = new ArrayList<>();
         Cursor tasks = myDB.getTaskData(selectedID);
 
 
 
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
 
         if (tasks.getCount() == 0){
             return;
@@ -94,6 +92,7 @@ public class TaskOverviewActivity extends AppCompatActivity {
 
             }
             //Set count total
+            //overDue.setText(Integer.toString(taskCntO));
             overDue.setText(Integer.toString(taskCntO));
             notOverdue.setText(Integer.toString(taskCnt));
 
@@ -101,7 +100,7 @@ public class TaskOverviewActivity extends AppCompatActivity {
             // #############
         }
         //Init adapter
-        adapter = new TaskListAdapter(getApplicationContext(), mProductList);
+        TaskListAdapter adapter = new TaskListAdapter(getApplicationContext(), mProductList);
         taskListView.setAdapter(adapter);
 
         taskListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -113,7 +112,7 @@ public class TaskOverviewActivity extends AppCompatActivity {
                 editTask.putExtra("subID",selectedID);
                 editTask.putExtra("name",selectedSubject);
                 startActivity(editTask);
-                //Toast.makeText(getApplicationContext(), "Task ID = " + view.getTag(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Task ID = " + view.getTag(), Toast.LENGTH_SHORT).show();
             }
         });
     }
