@@ -102,7 +102,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 null,
                 null,
                 null,
-                null);
+                TASK_DATE + " ASC");
     }
 
     public Cursor getSingleTask(String task_id){

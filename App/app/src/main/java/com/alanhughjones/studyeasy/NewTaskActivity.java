@@ -25,7 +25,9 @@ public class NewTaskActivity extends AppCompatActivity {
     private Button datePick;
     private Button addTaskDone;
     int year_x,month_x,day_x;
+    private String fakeTime = " 00:00:00.000";
     private String taskDate = "";
+    //private String showDate = "";
     private EditText taskName;
     static final int DIALOG_ID = 0;
     private int selectedID;
@@ -53,6 +55,7 @@ public class NewTaskActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String newTask = taskName.getText().toString();
                 if(newTask.length() != 0 && taskDate.length() != 0){
+                    taskDate = taskDate + fakeTime;
                     addTask(taskDate,newTask,selectedID);
                     Intent showAllTasks = new Intent(NewTaskActivity.this,TaskOverviewActivity.class);
                     showAllTasks.putExtra("id",selectedID);
@@ -76,8 +79,21 @@ public class NewTaskActivity extends AppCompatActivity {
                         new DatePickerDialog.OnDateSetListener(){
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth){
-                                taskDate = dayOfMonth + "-" + (monthOfYear+1) + "-" + year;
-                                //dueDateShow.setText(taskDate);
+                                String sDayOfMonth;
+                                String sMonthOfYear;
+                                if (dayOfMonth<10){
+                                    sDayOfMonth = "0" + dayOfMonth;
+                                } else {
+                                    sDayOfMonth = Integer.toString(dayOfMonth);
+                                }
+                                if (monthOfYear<10){
+                                    sMonthOfYear = "0" + (monthOfYear + 1);
+                                } else {
+                                    sMonthOfYear = Integer.toString(monthOfYear+1);
+                                }
+
+                                //showDate = sDayOfMonth + "-" + sMonthOfYear + "-" + year;
+                                taskDate = year + "-" + sMonthOfYear + "-" + sDayOfMonth;
                             }
                         },year_x,month_x,day_x);
                 picker.show();

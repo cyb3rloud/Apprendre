@@ -71,14 +71,16 @@ public class TaskOverviewActivity extends AppCompatActivity {
 
 
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.US);
 
         if (tasks.getCount() == 0){
             return;
         } else {
             while (tasks.moveToNext()) {
+                //TODO Convert strDate to string and modify format to DD-MM-YYYY (from YYYY-MM-DD HH:MM:SS.SSS)
                 mProductList.add(new Task(tasks.getInt(0), tasks.getString(1), tasks.getString(2)));
                 Date strDate;
+
                 try {
                     strDate = sdf.parse(tasks.getString(2));
                     if (new Date().after(strDate)){
@@ -91,13 +93,10 @@ public class TaskOverviewActivity extends AppCompatActivity {
                 }
 
             }
-            //Set count total
-            //overDue.setText(Integer.toString(taskCntO));
+
             overDue.setText(Integer.toString(taskCntO));
             notOverdue.setText(Integer.toString(taskCnt));
 
-            // Sort arrayList
-            // #############
         }
         //Init adapter
         TaskListAdapter adapter = new TaskListAdapter(getApplicationContext(), mProductList);
