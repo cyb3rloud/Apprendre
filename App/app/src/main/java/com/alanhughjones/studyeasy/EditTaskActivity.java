@@ -33,6 +33,7 @@ public class EditTaskActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_task);
         myDB = new DatabaseHelper(this);
         editTaskDone = findViewById(R.id.edit_task_done);
+        final EditText dueDateShow = findViewById(R.id.show_due_date);
         taskName = findViewById(R.id.edit_task_input);
         Button deleteTask = findViewById(R.id.delete_task);
         Button datePick = findViewById(R.id.edit_datepick_btn);
@@ -52,6 +53,7 @@ public class EditTaskActivity extends AppCompatActivity {
         if (editTask.moveToFirst()) {
             taskName.setText(editTask.getString(0));
             taskDate = editTask.getString(1);
+            dueDateShow.setText(taskDate);
         }
 
         // Set onclick listener to delete button
@@ -80,6 +82,7 @@ public class EditTaskActivity extends AppCompatActivity {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth){
                                 taskDate = dayOfMonth + "-" + (monthOfYear+1) + "-" + year;
+                                dueDateShow.setText(taskDate);
                             }
                         },year_x,month_x,day_x);
                 picker.show();
