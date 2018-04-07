@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/stripedbackground"
+    android:background="@color/colorPrimary"
     tools:context="com.alanhughjones.studyeasy.NewTaskActivity">
 
     <android.support.v7.widget.Toolbar
@@ -13,7 +13,7 @@
         android:layout_height="50dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:background="#5c6bc0" />
+        android:background="@color/taskBar" />
 
     <RelativeLayout
 
@@ -71,7 +71,7 @@
                     android:layout_margin="0dp"
                     android:paddingTop="10dp"
                     android:paddingBottom="20dp"
-                    android:background="@android:color/holo_blue_light"
+                    android:background="@color/taskLeft"
                     android:orientation="vertical">
 
                     <TextView
@@ -80,7 +80,7 @@
                         android:layout_height="wrap_content"
                         android:text="0"
                         android:textAlignment="center"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/colorAccent"
                         android:textSize="24sp" />
 
                     <TextView
@@ -89,7 +89,7 @@
                         android:layout_height="wrap_content"
                         android:text="upcoming"
                         android:textAlignment="center"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/colorAccent"
                         android:textSize="18sp" />
 
 
@@ -114,7 +114,7 @@
                     android:layout_margin="0dp"
                     android:paddingTop="10dp"
                     android:paddingBottom="20dp"
-                    android:background="@android:color/holo_red_light"
+                    android:background="@color/taskRight"
                     android:orientation="vertical">
 
                     <TextView
@@ -123,7 +123,7 @@
                         android:layout_height="wrap_content"
                         android:text="0"
                         android:textAlignment="center"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/colorAccent"
                         android:textSize="24sp" />
 
                     <TextView
@@ -132,7 +132,7 @@
                         android:layout_height="wrap_content"
                         android:text="overdue"
                         android:textAlignment="center"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/colorAccent"
                         android:textSize="18sp" />
 
 
@@ -174,9 +174,9 @@
             android:id="@+id/add_task_done"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/holo_green_light"
+            android:background="@color/colorPrimaryDark"
             android:text="@string/add_new_task"
-            android:textColor="@android:color/white"
+            android:textColor="@color/ctaButtons"
             android:textSize="18sp"
             tools:textAllCaps="false"
             />

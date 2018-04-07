@@ -4,4 +4,7 @@
     <color name="colorPrimaryDark">#5b1555</color>
     <color name="colorAccent">#555555</color>
     <color name="ctaButtons">#fff200</color>
+    <color name="taskLeft">#bcbec0</color>
+    <color name="taskRight">#f6ed44</color>
+    <color name="taskBar">#7f1b6e</color>
 </resources>
