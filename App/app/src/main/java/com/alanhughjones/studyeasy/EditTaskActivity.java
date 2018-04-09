@@ -56,7 +56,11 @@ public class EditTaskActivity extends AppCompatActivity {
             taskName.setText(editTask.getString(0));
             taskDate = editTask.getString(1);
             // TODO split task date (format YYYY-MM-DD HH:MM:SS.SSS) into year month and day to arrange as DD-MM-YYYY
-            dueDateShow.setText(taskDate);
+            String dbDay = taskDate.substring(8,10);
+            String dbMonth = taskDate.substring(5,7);
+            String dbYear = taskDate.substring(0,4);
+            String convertedDate = dbDay + "-" + dbMonth + "-" + dbYear;
+            dueDateShow.setText(convertedDate);
         }
 
         // Set onclick listener to delete button
@@ -97,7 +101,7 @@ public class EditTaskActivity extends AppCompatActivity {
                                     sMonthOfYear = Integer.toString(monthOfYear+1);
                                 }
                                 showDate = sDayOfMonth + "-" + sMonthOfYear + "-" + year;
-                                taskDate = year + "-" + sMonthOfYear + "-" + sDayOfMonth;
+                                taskDate = year + "-" + sMonthOfYear + "-" + sDayOfMonth + fakeTime;
                                 dueDateShow.setText(showDate);
                             }
                         },year_x,month_x,day_x);

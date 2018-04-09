@@ -24,8 +24,6 @@ import java.util.Locale;
 public class TaskOverviewActivity extends AppCompatActivity {
 
     DatabaseHelper myDB;
-    public int taskCnt;
-    public int taskCntO;
 
     private String selectedSubject;
     private int selectedID;
@@ -42,8 +40,8 @@ public class TaskOverviewActivity extends AppCompatActivity {
         TextView overDue = findViewById(R.id.overdue_count);
         TextView notOverdue = findViewById(R.id.task_count);
         myDB = new DatabaseHelper(this);
-        taskCnt = 0;
-        taskCntO = 0;
+        int taskCnt = 0;
+        int taskCntO = 0;
 
         btnAddTask.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,14 +69,20 @@ public class TaskOverviewActivity extends AppCompatActivity {
 
 
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.US);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 
         if (tasks.getCount() == 0){
             return;
         } else {
             while (tasks.moveToNext()) {
-                //TODO Convert strDate to string and modify format to DD-MM-YYYY (from YYYY-MM-DD HH:MM:SS.SSS)
-                mProductList.add(new Task(tasks.getInt(0), tasks.getString(1), tasks.getString(2)));
+                // Convert tasks.getString(2) to format DD-MM-YYYY (from YYYY-MM-DD HH:MM:SS.SSS)
+                String dbDate = tasks.getString(2);
+                String dbDay = dbDate.substring(8,10);
+                String dbMonth = dbDate.substring(5,7);
+                String dbYear = dbDate.substring(0,4);
+                String convertedDate = dbDay + "-" + dbMonth + "-" + dbYear;
+
+                mProductList.add(new Task(tasks.getInt(0), tasks.getString(1), convertedDate));
                 Date strDate;
 
                 try {
@@ -91,6 +95,7 @@ public class TaskOverviewActivity extends AppCompatActivity {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
+
 
             }
 
