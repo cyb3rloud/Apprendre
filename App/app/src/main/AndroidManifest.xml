@@ -18,19 +18,26 @@
         </activity>
         <activity
             android:name=".SubjectAddActivity"
-            android:parentActivityName=".SubjectListActivity"></activity>
+            android:parentActivityName=".SubjectListActivity" />
         <activity
             android:name=".TaskOverviewActivity"
             android:label="Tasks"
-            android:parentActivityName=".SubjectListActivity"></activity>
+            android:parentActivityName=".SubjectListActivity" />
         <activity
             android:name=".NewTaskActivity"
             android:label="NewTaskActivity"
-            android:parentActivityName=".SubjectListActivity"></activity>
+            android:parentActivityName=".SubjectListActivity" />
         <activity
             android:name=".EditTaskActivity"
             android:label="Edit Task"
-            android:parentActivityName=".SubjectListActivity"></activity>
+            android:parentActivityName=".SubjectListActivity" />
+        <activity android:name=".SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
