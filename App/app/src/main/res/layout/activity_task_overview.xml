@@ -29,12 +29,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="0dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="80dp"
             android:text="Programming"
             android:textColor="@android:color/white"
             android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/delete_subj"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/overview_subj"
+            android:background="@color/colorPrimary"
+            android:text="Delete Subject"
+            android:textStyle="italic"
+            android:textAlignment="viewStart"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/ctaButtons"/>
+
 
 
     </RelativeLayout>
@@ -164,6 +177,7 @@
 
 
     <LinearLayout
+        android:id="@+id/addTaskWrap"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -182,5 +196,6 @@
             />
 
     </LinearLayout>
+
 
 </RelativeLayout>

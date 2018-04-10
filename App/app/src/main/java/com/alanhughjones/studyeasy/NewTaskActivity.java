@@ -1,38 +1,30 @@
 package com.alanhughjones.studyeasy;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-//import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.Calendar;
 
 public class NewTaskActivity extends AppCompatActivity {
 
-    private static final String TAG = "NewTaskActivity";
     DatabaseHelper myDB;
 
-
-    private Button datePick;
-    private Button addTaskDone;
     int year_x,month_x,day_x;
     private String fakeTime = " 00:00:00.000";
     private String taskDate = "";
-    //private String showDate = "";
+    private String showDate = "";
     private EditText taskName;
-    static final int DIALOG_ID = 0;
     private int selectedID;
     private String selectedName;
     DatePickerDialog picker;
+    private EditText showNewDate;
 
 
     @Override
@@ -40,9 +32,10 @@ public class NewTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_task);
         myDB = new DatabaseHelper(this);
-        addTaskDone = findViewById(R.id.add_task_done);
+        Button addTaskDone = findViewById(R.id.add_task_done);
         taskName = findViewById(R.id.input_task);
         Button datePick = findViewById(R.id.datepick_btn);
+        showNewDate = findViewById(R.id.show_new_date);
 
         // get the intent extra from the SubjectAddActivity (the id of the subject)
         Intent receivedIntent = getIntent();
@@ -92,8 +85,9 @@ public class NewTaskActivity extends AppCompatActivity {
                                     sMonthOfYear = Integer.toString(monthOfYear+1);
                                 }
 
-                                //showDate = sDayOfMonth + "-" + sMonthOfYear + "-" + year;
+                                showDate = sDayOfMonth + "-" + sMonthOfYear + "-" + year;
                                 taskDate = year + "-" + sMonthOfYear + "-" + sDayOfMonth;
+                                showNewDate.setHint(showDate);
                             }
                         },year_x,month_x,day_x);
                 picker.show();

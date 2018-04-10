@@ -140,4 +140,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.update(TASK_TABLE, contentValues, TASK_ID +" = ? AND " + TASK_SUBJECT_ID+" = ?", new String[] {task_id,subj_id});
         return true;
     }
+
+    public void deleteSubj(String subjID) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TASK_TABLE, TASK_SUBJECT_ID + " = ?", new String[]{subjID});
+        db.delete(SUBJECT_TABLE, SUBJECT_ID + " = ?", new String[]{subjID});
+    }
 }

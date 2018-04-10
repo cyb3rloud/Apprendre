@@ -55,12 +55,11 @@ public class EditTaskActivity extends AppCompatActivity {
         if (editTask.moveToFirst()) {
             taskName.setText(editTask.getString(0));
             taskDate = editTask.getString(1);
-            // TODO split task date (format YYYY-MM-DD HH:MM:SS.SSS) into year month and day to arrange as DD-MM-YYYY
             String dbDay = taskDate.substring(8,10);
             String dbMonth = taskDate.substring(5,7);
             String dbYear = taskDate.substring(0,4);
             String convertedDate = dbDay + "-" + dbMonth + "-" + dbYear;
-            dueDateShow.setText(convertedDate);
+            dueDateShow.setHint(convertedDate);
         }
 
         // Set onclick listener to delete button

@@ -39,6 +39,7 @@ public class TaskOverviewActivity extends AppCompatActivity {
         Button btnAddTask = findViewById(R.id.add_task_done);
         TextView overDue = findViewById(R.id.overdue_count);
         TextView notOverdue = findViewById(R.id.task_count);
+        Button deleteSubj = findViewById(R.id.delete_subj);
         myDB = new DatabaseHelper(this);
         int taskCnt = 0;
         int taskCntO = 0;
@@ -50,6 +51,15 @@ public class TaskOverviewActivity extends AppCompatActivity {
                 newTask.putExtra("id",selectedID);
                 newTask.putExtra("name",selectedSubject);
                 startActivity(newTask);
+            }
+        });
+
+        deleteSubj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDB.deleteSubj(Integer.toString(selectedID));
+                Intent afterSubjDel = new Intent(TaskOverviewActivity.this,SubjectListActivity.class);
+                startActivity(afterSubjDel);
             }
         });
 
