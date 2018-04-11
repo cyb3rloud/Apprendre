@@ -1,6 +1,7 @@
 package com.alanhughjones.studyeasy;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -21,12 +23,14 @@ public class EditTaskActivity extends AppCompatActivity {
     int year_x,month_x,day_x;
     private String taskDate = "";
     private String showDate = "";
+    private String theTime = "";
+    private String fullTime = "";
     private EditText taskName;
     private int selectedSubID;
     private String selectedTaskId;
     private String selectedSubName;
     DatePickerDialog picker;
-    private String fakeTime = " 00:00:00.000";
+    private String fakeTime = ":00.000"; // was " 00:00:00.000" originally
 
 
     @Override
@@ -39,6 +43,8 @@ public class EditTaskActivity extends AppCompatActivity {
         taskName = findViewById(R.id.edit_task_input);
         Button deleteTask = findViewById(R.id.delete_task);
         Button datePick = findViewById(R.id.edit_datepick_btn);
+        Button timePick = findViewById(R.id.edit_time_btn);
+        final EditText showTime = findViewById(R.id.show_due_time);
 
         UpdateTask();
         // get the intent extra from the SubjectAddActivity (the id of the subject)
@@ -53,6 +59,9 @@ public class EditTaskActivity extends AppCompatActivity {
         // Set task input field to contain task title and date to task date
         Cursor editTask = myDB.getSingleTask(selectedTaskId);
         if (editTask.moveToFirst()) {
+
+            // yyyy-MM--dd HH:mm:ss.SSS
+
             taskName.setText(editTask.getString(0));
             taskDate = editTask.getString(1);
             String dbDay = taskDate.substring(8,10);
@@ -60,6 +69,11 @@ public class EditTaskActivity extends AppCompatActivity {
             String dbYear = taskDate.substring(0,4);
             String convertedDate = dbDay + "-" + dbMonth + "-" + dbYear;
             dueDateShow.setHint(convertedDate);
+
+            theTime = editTask.getString(1);
+            String dbTime = theTime.substring(11,16);
+            showTime.setHint(dbTime);
+
         }
 
         // Set onclick listener to delete button
@@ -72,6 +86,24 @@ public class EditTaskActivity extends AppCompatActivity {
                 backAllTasks.putExtra("id", selectedSubID);
                 backAllTasks.putExtra("name", selectedSubName);
                 startActivity(backAllTasks);
+            }
+        });
+
+        timePick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar currentTime = Calendar.getInstance();
+                int hour = currentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = currentTime.get(Calendar.MINUTE);
+                TimePickerDialog timePicker;
+                timePicker = new TimePickerDialog(EditTaskActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        fullTime = selectedHour + ":" + selectedMinute;
+                        showTime.setText(fullTime);
+                    }
+                }, hour, minute, true);
+                timePicker.show();
             }
         });
 
@@ -100,15 +132,13 @@ public class EditTaskActivity extends AppCompatActivity {
                                     sMonthOfYear = Integer.toString(monthOfYear+1);
                                 }
                                 showDate = sDayOfMonth + "-" + sMonthOfYear + "-" + year;
-                                taskDate = year + "-" + sMonthOfYear + "-" + sDayOfMonth + fakeTime;
+                                taskDate = year + "-" + sMonthOfYear + "-" + sDayOfMonth;
                                 dueDateShow.setText(showDate);
                             }
                         },year_x,month_x,day_x);
                 picker.show();
             }
         });
-
-
     }
 
     public void UpdateTask(){
@@ -118,6 +148,7 @@ public class EditTaskActivity extends AppCompatActivity {
                 String updatedDesc = taskName.getText().toString();
                 String sSubId = Integer.toString(selectedSubID);
                 if(updatedDesc.length() != 0 && taskDate.length() != 0) {
+                    taskDate = taskDate + " " + fullTime + fakeTime;
                     boolean isUpdated = myDB.updateTask(sSubId, selectedTaskId, updatedDesc, taskDate);
                     if(isUpdated){
                         Toast.makeText(EditTaskActivity.this, "Task Updated", Toast.LENGTH_LONG).show();
@@ -126,7 +157,7 @@ public class EditTaskActivity extends AppCompatActivity {
                         showAllTasks.putExtra("name",selectedSubName);
                         startActivity(showAllTasks);
                     } else {
-                        Toast.makeText(EditTaskActivity.this, "Task not updated", Toast.LENGTH_LONG).show();
+                        Toast.makeText(EditTaskActivity.this, "Please fill all fields", Toast.LENGTH_LONG).show();
                     }
                 }
             }
