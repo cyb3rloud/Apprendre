@@ -9,32 +9,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SubjectListActivity">
+        <activity android:name=".SubjectListActivity"/>
+        <activity
+            android:name=".SubjectAddActivity"
+            android:parentActivityName=".SubjectListActivity" />
+        <activity
+            android:name=".TaskOverviewActivity"
+            android:label="Tasks"
+            android:parentActivityName=".SubjectListActivity" />
+        <activity
+            android:name=".NewTaskActivity"
+            android:label="NewTaskActivity"
+            android:parentActivityName=".SubjectListActivity" />
+        <activity
+            android:name=".EditTaskActivity"
+            android:label="Edit Task"
+            android:parentActivityName=".SubjectListActivity" />
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".SubjectAddActivity"
-            android:parentActivityName=".SubjectListActivity">
-
-            <!-- The meta-data tag is required if you support API level 15 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".SubjectListActivity" />
-        </activity>
-        <activity
-            android:name=".TaskOverviewActivity"
-            android:parentActivityName=".SubjectListActivity">
-
-            <!-- The meta-data tag is required if you support API level 15 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".SubjectListActivity" />
-        </activity>
-        <activity android:name=".NewTaskActivity"/>
     </application>
 
 </manifest>

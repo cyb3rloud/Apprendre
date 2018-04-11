@@ -1,38 +1,35 @@
 package com.alanhughjones.studyeasy;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-//import android.widget.Spinner;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.Calendar;
 
 public class NewTaskActivity extends AppCompatActivity {
 
-    private static final String TAG = "NewTaskActivity";
     DatabaseHelper myDB;
 
-    //Spinner spinner;
-    //ArrayAdapter<CharSequence> adapter; //need to use cursorAdapter for database
-
-    private Button datePick;
-    private Button addTaskDone;
     int year_x,month_x,day_x;
-    private String taskDate;
+    private String fakeTime = ":00.000";
+    private String taskDate = "";
+    private String showDate = "";
+    private String showTime = "";
+    private String fullTime = "";
     private EditText taskName;
-    static final int DIALOG_ID = 0;
     private int selectedID;
     private String selectedName;
-
+    DatePickerDialog picker;
+    private EditText showNewDate;
+    private Button timePick;
 
 
     @Override
@@ -40,9 +37,12 @@ public class NewTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_task);
         myDB = new DatabaseHelper(this);
-        addTaskDone = findViewById(R.id.add_task_done);
+        Button addTaskDone = findViewById(R.id.add_task_done);
         taskName = findViewById(R.id.input_task);
-
+        Button datePick = findViewById(R.id.datepick_btn);
+        showNewDate = findViewById(R.id.show_new_date);
+        timePick = findViewById(R.id.timepick_btn);
+        final EditText showTime = findViewById(R.id.show_new_time);
 
         // get the intent extra from the SubjectAddActivity (the id of the subject)
         Intent receivedIntent = getIntent();
@@ -54,57 +54,86 @@ public class NewTaskActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String newTask = taskName.getText().toString();
-                if(newTask.length() != 0 && taskDate.length() != 0){
+                if(newTask.length() != 0 && taskDate.length() != 0 && fullTime.length() !=0){
+                    taskDate = taskDate + " " + fullTime + fakeTime;
                     addTask(taskDate,newTask,selectedID);
                     Intent showAllTasks = new Intent(NewTaskActivity.this,TaskOverviewActivity.class);
                     showAllTasks.putExtra("id",selectedID);
                     showAllTasks.putExtra("name",selectedName);
                     startActivity(showAllTasks);
                 } else {
-                    Toast.makeText(NewTaskActivity.this,"No",Toast.LENGTH_LONG).show();
+                    Toast.makeText(NewTaskActivity.this,"Please fill all fields",Toast.LENGTH_LONG).show();
                 }
             }
         });
 
-        final Calendar cal = Calendar.getInstance();
-        year_x = cal.get(Calendar.YEAR);
-        month_x = cal.get(Calendar.MONTH);
-        day_x = cal.get(Calendar.DAY_OF_MONTH);
+        timePick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar currentTime = Calendar.getInstance();
+                int hour = currentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = currentTime.get(Calendar.MINUTE);
+                TimePickerDialog timePicker;
+                timePicker = new TimePickerDialog(NewTaskActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        String sSelectedHour;
+                        String sSelectedMinute;
 
-        showDialogOnInputClick();
+                        if (selectedHour<10){
+                            sSelectedHour = "0" + selectedHour;
+                        } else {
+                            sSelectedHour = Integer.toString(selectedHour);
+                        }
+
+                        if (selectedMinute<10){
+                            sSelectedMinute = "0" + selectedMinute;
+                        } else {
+                            sSelectedMinute = Integer.toString(selectedMinute);
+                        }
+                        fullTime = sSelectedHour + ":" + sSelectedMinute;
+                        showTime.setText(fullTime);
+                    }
+                }, hour, minute, true);
+                timePicker.show();
+            }
+        });
+
+        datePick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar cldr = Calendar.getInstance();
+                day_x = cldr.get(Calendar.DAY_OF_MONTH);
+                month_x = cldr.get(Calendar.MONTH);
+                year_x = cldr.get(Calendar.YEAR);
+                // date picker dialog
+                picker = new DatePickerDialog(NewTaskActivity.this,
+                        new DatePickerDialog.OnDateSetListener(){
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth){
+                                String sDayOfMonth;
+                                String sMonthOfYear;
+                                if (dayOfMonth<10){
+                                    sDayOfMonth = "0" + dayOfMonth;
+                                } else {
+                                    sDayOfMonth = Integer.toString(dayOfMonth);
+                                }
+                                if (monthOfYear<10){
+                                    sMonthOfYear = "0" + (monthOfYear + 1);
+                                } else {
+                                    sMonthOfYear = Integer.toString(monthOfYear+1);
+                                }
+
+                                showDate = sDayOfMonth + "-" + sMonthOfYear + "-" + year;
+                                taskDate = year + "-" + sMonthOfYear + "-" + sDayOfMonth;
+                                showNewDate.setHint(showDate);
+                            }
+                        },year_x,month_x,day_x);
+                picker.show();
+            }
+        });
     }
 
-    public void showDialogOnInputClick() {
-       datePick = findViewById(R.id.datepick_btn);
-
-       datePick.setOnClickListener(
-               new View.OnClickListener() {
-                   @Override
-                   public void onClick(View v) {
-                        showDialog(DIALOG_ID);
-                   }
-               }
-       );
-    }
-
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        if(id == DIALOG_ID)
-            return new DatePickerDialog(this, dpickerListener, year_x, month_x, day_x);
-        return null;
-    }
-
-    private DatePickerDialog.OnDateSetListener dpickerListener
-            = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            year_x = year;
-            month_x = monthOfYear+1;
-            day_x = dayOfMonth;
-            taskDate = year_x + "-" + month_x + "-" + day_x;
-            Toast.makeText(NewTaskActivity.this, day_x + "/" + month_x + "/" + year_x, Toast.LENGTH_SHORT).show();
-        }
-    };
 
     public void addTask(String newTaskDate, String newTaskDesc, int subjectID){
         boolean insertData = myDB.insertTask(newTaskDate,newTaskDesc,subjectID);

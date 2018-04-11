@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/stripedbackground"
+    android:background="#6f1661"
     android:visibility="visible"
     tools:context="com.alanhughjones.studyeasy.SubjectListActivity">
 
@@ -22,9 +22,9 @@
         android:id="@+id/addSubjButton"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_below="@+id/main_logo"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="226dp"
         android:background="@android:drawable/ic_menu_add"
         android:onClick="openAddSubject"
         android:textColor="@android:color/white"
@@ -35,9 +35,9 @@
         android:id="@+id/addSubjTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/addSubjButton"
+        android:layout_above="@+id/addSubjButton"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="61dp"
+        android:layout_marginBottom="-226dp"
         android:text="@string/add_subj_txt"
         android:textColor="@android:color/white"
         android:textSize="24sp" />
@@ -45,13 +45,19 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/addSubjButton"
         android:orientation="vertical"
-        android:layout_below="@id/addSubjTextView">
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_marginTop="30dp">
 
         <ListView
+            android:id="@+id/subj_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/subj_list"/>
+            android:background="@color/taskRight"
+            android:divider="#6f1661"
+            android:dividerHeight="19dp" />
 
     </LinearLayout>
 

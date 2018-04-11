@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3f51b5</color>
-    <color name="colorPrimaryDark">#303f9f</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#6f1661</color>
+    <color name="colorPrimaryDark">#5b1555</color>
+    <color name="colorAccent">#555555</color>
+    <color name="ctaButtons">#fff200</color>
+    <color name="taskLeft">#bcbec0</color>
+    <color name="taskRight">#f6ed44</color>
+    <color name="taskBar">#7f1b6e</color>
 </resources>

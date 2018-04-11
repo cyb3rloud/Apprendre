@@ -4,45 +4,68 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/stripedbackground"
+    android:background="@color/colorPrimary"
     tools:context="com.alanhughjones.studyeasy.NewTaskActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/edit_task_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/taskBar" />
 
+    <RelativeLayout
 
-    <LinearLayout
-        android:weightSum="2"
+        android:id="@+id/testing"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:minHeight="60dp">
 
-        <RelativeLayout
+        <TextView
+            android:id="@+id/overview_subj"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="80dp"
+            android:text="Programming"
+            android:textColor="@android:color/white"
+            android:textSize="30sp" />
 
-            <TextView
-                android:id="@+id/overview_subj"
-                android:text="Programming"
-                android:textSize="30sp"
-                android:textColor="@android:color/white"
-                android:layout_alignParentLeft="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="80dp"
-                android:layout_marginLeft="20dp"/>
+        <Button
+            android:id="@+id/delete_subj"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/overview_subj"
+            android:background="@color/colorPrimary"
+            android:text="Delete Subject"
+            android:textStyle="italic"
+            android:textAlignment="viewStart"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/ctaButtons"/>
 
 
 
-        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/double_boxes"
+        android:layout_below="@+id/testing">
 
         <GridLayout
             android:columnCount="2"
-            android:rowCount="3"
+            android:rowCount="1"
             android:alignmentMode="alignMargins"
             android:columnOrderPreserved="false"
             android:layout_weight="2"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             >
 
             <!-- #Row 1 -->
@@ -59,18 +82,18 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_margin="0dp"
-                    android:paddingTop="20dp"
-                    android:paddingBottom="40dp"
-                    android:background="@android:color/holo_blue_light"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="20dp"
+                    android:background="@color/taskLeft"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/task_count"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="12"
+                        android:text="0"
                         android:textAlignment="center"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/colorAccent"
                         android:textSize="24sp" />
 
                     <TextView
@@ -79,7 +102,7 @@
                         android:layout_height="wrap_content"
                         android:text="upcoming"
                         android:textAlignment="center"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/colorAccent"
                         android:textSize="18sp" />
 
 
@@ -102,18 +125,18 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_margin="0dp"
-                    android:paddingTop="20dp"
-                    android:paddingBottom="40dp"
-                    android:background="@android:color/holo_red_light"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="20dp"
+                    android:background="@color/taskRight"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/overdue_count"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="12"
+                        android:text="0"
                         android:textAlignment="center"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/colorAccent"
                         android:textSize="24sp" />
 
                     <TextView
@@ -122,7 +145,7 @@
                         android:layout_height="wrap_content"
                         android:text="overdue"
                         android:textAlignment="center"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/colorAccent"
                         android:textSize="18sp" />
 
 
@@ -130,42 +153,31 @@
 
             </android.support.v7.widget.CardView>
 
-            <!-- #Row 3 -->
-            <!-- ##Column 1 -->
-            <android.support.v7.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_columnSpan="2"
-                android:layout_rowWeight="1"
-                app:cardElevation="20dp"
-                >
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="0dp"
-                    android:background="@android:color/white"
-                    android:orientation="vertical">
-
-                    <ListView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:id="@+id/task_list"/>
-
-                </LinearLayout>
-
-
-            </android.support.v7.widget.CardView>
-
-
         </GridLayout>
 
-    </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/double_boxes">
+
+        <ListView
+            android:id="@+id/task_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/cardview_light_background"
+            android:paddingLeft="20dp"
+            android:layout_marginBottom="44dp"/>
+
+    </RelativeLayout>
 
 
 
     <LinearLayout
+        android:id="@+id/addTaskWrap"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -176,12 +188,14 @@
             android:id="@+id/add_task_done"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/holo_green_light"
+            android:background="@color/colorPrimaryDark"
             android:text="@string/add_new_task"
-            android:textColor="@android:color/white"
+            android:textColor="@color/ctaButtons"
             android:textSize="18sp"
-            tools:textAllCaps="false" />
+            tools:textAllCaps="false"
+            />
 
     </LinearLayout>
+
 
 </RelativeLayout>

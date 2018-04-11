@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
+
 /**
  * Created by alanh on 24/03/2018.
  */
@@ -43,19 +43,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + TASK_DATE + " TEXT, "
             + "FOREIGN KEY(" + TASK_SUBJECT_ID + ") REFERENCES " + SUBJECT_TABLE + " (" + SUBJECT_ID + "));";
 
-    /*
-    * CREATE TABLE TASK_TABLE (
-    *   TASK_ID INTEGER PRIMARY KEY AUTOINCREMENT,
-    *   TASK_SUBJECT_ID INTEGER,
-    *   TASK_DESC TEXT,
-    *   TASK_DATE TEXT,
-    *   FOREIGN KEY(TASK_SUBJECT_ID) REFERENCES SUBJECT_TABLE(SUBJECT_ID));
-    *
-    *
-    * */
-
-
-
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -73,7 +60,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             onCreate(db);
     }
 
-    public boolean insertSubject(String subject) {
+    public void insertSubject(String subject) {
         SQLiteDatabase db = this.getWritableDatabase(); // just for testing
         ContentValues contentValues = new ContentValues();
         contentValues.put(SUBJECT_NAME,subject);
@@ -81,10 +68,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Log.d(TAG, "insertSubject: Adding " + subject + " to " + SUBJECT_TABLE);
 
         long result = db.insert(SUBJECT_TABLE,null,contentValues);
-        if (result == -1)
-            return false;
-        else
-            return true;
     }
 
     public boolean insertTask(String dbTaskDate, String dbTaskDesc, int dbSubjID) {
@@ -98,29 +81,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         long result = db.insert(TASK_TABLE,null,contentValues);
         db.close();
-        if (result == -1)
-            return false;
-        else
-            return true;
+        return result != -1;
     }
 
     public Cursor getAllData() {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM " + SUBJECT_TABLE;
-        Cursor result = db.rawQuery(query,null);
-        return result;
+        return db.rawQuery(query,null);
     }
-
-    /*
-    public Cursor getTaskData(int subj_id) {
-        String sub_id = Integer.toString(subj_id);
-        SQLiteDatabase db = this.getWritableDatabase();
-                String query = "SELECT " + TASK_DESC + " FROM " + TASK_TABLE
-                + " WHERE " + TASK_SUBJECT_ID + " = '" + sub_id + "'";
-        Cursor result = db.rawQuery(query, null);
-        return result;
-    }
-    */
 
     public Cursor getTaskData(int subj_id){
 
@@ -128,30 +96,54 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-        Cursor result = db.query(TASK_TABLE,
-                new String[] {TASK_DESC},
+        return db.query(TASK_TABLE,
+                new String[] {TASK_ID, TASK_DESC, TASK_DATE},
                 TASK_SUBJECT_ID + " = '"+sub_id+"'",
                 null,
                 null,
                 null,
-                null);
-        return result;
+                TASK_DATE + " ASC");
     }
 
+    public Cursor getSingleTask(String task_id){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        return db.query(TASK_TABLE,
+                new String[] {TASK_DESC, TASK_DATE},
+                TASK_ID + " = '"+task_id+"'",
+                null,
+                null,
+                null,
+                null);
+    }
 
     // Returns only the ID that matches the subject passed in
     public Cursor getItemID(String subj_name){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT " + SUBJECT_ID  + " FROM " + SUBJECT_TABLE +
                 " WHERE " + SUBJECT_NAME + " = '" + subj_name + "'";
-        Cursor data = db.rawQuery(query, null);
-        return data;
+        return db.rawQuery(query, null);
     }
 
-    /*
-    public Cursor countToDo(){
+    public void deleteTask(String taskID){
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT " +
+        db.delete(TASK_TABLE, TASK_ID + " = ?", new String[]{taskID});
     }
-    */
+
+    public boolean updateTask(String subj_id, String task_id, String task_desc, String task_date ){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(TASK_ID,task_id);
+        contentValues.put(TASK_DESC,task_desc);
+        contentValues.put(TASK_DATE,task_date);
+        db.update(TASK_TABLE, contentValues, TASK_ID +" = ? AND " + TASK_SUBJECT_ID+" = ?", new String[] {task_id,subj_id});
+        return true;
+    }
+
+    public void deleteSubj(String subjID) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TASK_TABLE, TASK_SUBJECT_ID + " = ?", new String[]{subjID});
+        db.delete(SUBJECT_TABLE, SUBJECT_ID + " = ?", new String[]{subjID});
+    }
 }
