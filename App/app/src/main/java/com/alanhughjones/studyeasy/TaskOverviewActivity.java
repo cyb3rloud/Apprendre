@@ -90,8 +90,8 @@ public class TaskOverviewActivity extends AppCompatActivity {
                 String dbDay = dbDate.substring(8,10);
                 String dbMonth = dbDate.substring(5,7);
                 String dbYear = dbDate.substring(0,4);
-                String convertedDate = dbDay + "-" + dbMonth + "-" + dbYear;
-
+                String dbTime = dbDate.substring(11,16);
+                String convertedDate = dbDay + "-" + dbMonth + "-" + dbYear + "    " + dbTime;
                 mProductList.add(new Task(tasks.getInt(0), tasks.getString(1), convertedDate));
                 Date strDate;
 
