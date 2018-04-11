@@ -17,6 +17,7 @@
     <string name="time_string">Time</string>
     <string name="date_format">DD/MM/YYYY</string>
     <string name="time_format">HH:MM</string>
+    <string name="select_time_new">Choose Time</string>
     <string-array name="categories">
         <item>Homework</item>
         <item>Project</item>

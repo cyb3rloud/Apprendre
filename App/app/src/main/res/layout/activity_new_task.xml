@@ -75,21 +75,53 @@
 
     <EditText
         android:id="@+id/show_new_date"
-        android:layout_width="272dp"
+        android:layout_width="155dp"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/duedate_title"
         android:layout_below="@+id/duedate_title"
-        android:focusable="false"/>
+        android:focusable="false"
+        android:hint="@string/date_format"
+        android:inputType="none"/>
 
     <Button
         android:id="@+id/datepick_btn"
         android:layout_width="120dp"
+        android:layout_height="36dp"
+        android:layout_alignEnd="@+id/add_task_done"
+        android:layout_below="@+id/duedate_title"
+        android:background="@color/colorPrimary"
+        android:text="@string/choose_date"
+        android:textColor="@android:color/background_light"
+        tools:textAllCaps="false" />
+
+    <TextView
+        android:id="@+id/duetime_title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/add_new_task"
         android:layout_below="@+id/show_new_date"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/time_string"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/show_new_time"
+        android:layout_width="155dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/duedate_title"
+        android:layout_below="@+id/duetime_title"
+        android:focusable="false"
+        android:hint="@string/time_format"/>
+
+    <Button
+        android:id="@+id/timepick_btn"
+        android:layout_width="120dp"
+        android:layout_height="36dp"
+        android:layout_alignEnd="@+id/add_task_done"
+        android:layout_below="@+id/duetime_title"
         android:background="@color/colorPrimary"
-        android:text="@string/choose_date"
+        android:text="@string/select_time_new"
         android:textColor="@android:color/background_light"
         tools:textAllCaps="false" />
 

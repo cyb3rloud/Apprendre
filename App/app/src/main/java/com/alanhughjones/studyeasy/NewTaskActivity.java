@@ -1,6 +1,7 @@
 package com.alanhughjones.studyeasy;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -17,14 +19,17 @@ public class NewTaskActivity extends AppCompatActivity {
     DatabaseHelper myDB;
 
     int year_x,month_x,day_x;
-    private String fakeTime = " 00:00:00.000";
+    private String fakeTime = ":00.000";
     private String taskDate = "";
     private String showDate = "";
+    private String showTime = "";
+    private String fullTime = "";
     private EditText taskName;
     private int selectedID;
     private String selectedName;
     DatePickerDialog picker;
     private EditText showNewDate;
+    private Button timePick;
 
 
     @Override
@@ -36,6 +41,8 @@ public class NewTaskActivity extends AppCompatActivity {
         taskName = findViewById(R.id.input_task);
         Button datePick = findViewById(R.id.datepick_btn);
         showNewDate = findViewById(R.id.show_new_date);
+        timePick = findViewById(R.id.timepick_btn);
+        final EditText showTime = findViewById(R.id.show_new_time);
 
         // get the intent extra from the SubjectAddActivity (the id of the subject)
         Intent receivedIntent = getIntent();
@@ -47,16 +54,48 @@ public class NewTaskActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String newTask = taskName.getText().toString();
-                if(newTask.length() != 0 && taskDate.length() != 0){
-                    taskDate = taskDate + fakeTime;
+                if(newTask.length() != 0 && taskDate.length() != 0 && fullTime.length() !=0){
+                    taskDate = taskDate + " " + fullTime + fakeTime;
                     addTask(taskDate,newTask,selectedID);
                     Intent showAllTasks = new Intent(NewTaskActivity.this,TaskOverviewActivity.class);
                     showAllTasks.putExtra("id",selectedID);
                     showAllTasks.putExtra("name",selectedName);
                     startActivity(showAllTasks);
                 } else {
-                    Toast.makeText(NewTaskActivity.this,"Please enter a date",Toast.LENGTH_LONG).show();
+                    Toast.makeText(NewTaskActivity.this,"Please fill all fields",Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+
+        timePick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar currentTime = Calendar.getInstance();
+                int hour = currentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = currentTime.get(Calendar.MINUTE);
+                TimePickerDialog timePicker;
+                timePicker = new TimePickerDialog(NewTaskActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        String sSelectedHour;
+                        String sSelectedMinute;
+
+                        if (selectedHour<10){
+                            sSelectedHour = "0" + selectedHour;
+                        } else {
+                            sSelectedHour = Integer.toString(selectedHour);
+                        }
+
+                        if (selectedMinute<10){
+                            sSelectedMinute = "0" + selectedMinute;
+                        } else {
+                            sSelectedMinute = Integer.toString(selectedMinute);
+                        }
+                        fullTime = sSelectedHour + ":" + sSelectedMinute;
+                        showTime.setText(fullTime);
+                    }
+                }, hour, minute, true);
+                timePicker.show();
             }
         });
 
