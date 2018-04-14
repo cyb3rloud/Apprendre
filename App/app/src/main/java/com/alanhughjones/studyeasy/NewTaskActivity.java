@@ -4,7 +4,9 @@ import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -31,7 +33,10 @@ public class NewTaskActivity extends AppCompatActivity {
     DatePickerDialog picker;
     private EditText showNewDate;
     private Button timePick;
-
+    SharedPreferences sharedpreferences;
+    public static final String mypreference = "mypref";
+    public static final String Name = "idKey";
+    //public static final String Email = "actualID";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +66,8 @@ public class NewTaskActivity extends AppCompatActivity {
                     Intent showAllTasks = new Intent(NewTaskActivity.this,TaskOverviewActivity.class);
                     showAllTasks.putExtra("id",selectedID);
                     showAllTasks.putExtra("name",selectedName);
+                    createReminder(selectedName);
+                    increaseNotifID();
                     startActivity(showAllTasks);
                 } else {
                     Toast.makeText(NewTaskActivity.this,"Please fill all fields",Toast.LENGTH_LONG).show();
@@ -134,17 +141,31 @@ public class NewTaskActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void increaseNotifID() {
+
+    }
+
+    public void createReminder(String subjectName){
         // alarmService (at this particular time, do this for me...)
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
         Intent notificationIntent = new Intent(this, AlarmReceiver.class);
+        notificationIntent.putExtra("subject",subjectName);
         PendingIntent broadcast = PendingIntent.getBroadcast(this, 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
+        //TODO get time set from Picker and use for notification
         Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.SECOND,5);
+        cal.add(Calendar.SECOND,30);
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),broadcast);
-    }
 
+        sharedpreferences = getSharedPreferences(mypreference,
+                Context.MODE_PRIVATE);
+        if (sharedpreferences.contains(Name)){
+            notificationIntent.putExtra("notifID",sharedpreferences.getString(Name,""));
+        }
+    }
 
     public void addTask(String newTaskDate, String newTaskDesc, int subjectID){
         boolean insertData = myDB.insertTask(newTaskDate,newTaskDesc,subjectID);
