@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SubjectListActivity"/>
+        <activity android:name=".SubjectListActivity" />
         <activity
             android:name=".SubjectAddActivity"
             android:parentActivityName=".SubjectListActivity" />
@@ -32,6 +32,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".NotificationActivity"/>
+        <receiver android:name=".AlarmReceiver"/>
     </application>
 
 </manifest>

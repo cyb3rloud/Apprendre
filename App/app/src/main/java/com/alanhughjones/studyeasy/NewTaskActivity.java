@@ -1,6 +1,8 @@
 package com.alanhughjones.studyeasy;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -22,7 +24,6 @@ public class NewTaskActivity extends AppCompatActivity {
     private String fakeTime = ":00.000";
     private String taskDate = "";
     private String showDate = "";
-    private String showTime = "";
     private String fullTime = "";
     private EditText taskName;
     private int selectedID;
@@ -132,6 +133,16 @@ public class NewTaskActivity extends AppCompatActivity {
                 picker.show();
             }
         });
+
+        // alarmService (at this particular time, do this for me...)
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+        Intent notificationIntent = new Intent(this, AlarmReceiver.class);
+        PendingIntent broadcast = PendingIntent.getBroadcast(this, 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.SECOND,5);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),broadcast);
     }
 
 
