@@ -35,8 +35,8 @@ public class NewTaskActivity extends AppCompatActivity {
     private Button timePick;
     SharedPreferences sharedpreferences;
     public static final String mypreference = "mypref";
-    public static final String Name = "idKey";
-    //public static final String Email = "actualID";
+    public static final String Name = "nofifID";
+    public static final int NID = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +67,6 @@ public class NewTaskActivity extends AppCompatActivity {
                     showAllTasks.putExtra("id",selectedID);
                     showAllTasks.putExtra("name",selectedName);
                     createReminder(selectedName);
-                    increaseNotifID();
                     startActivity(showAllTasks);
                 } else {
                     Toast.makeText(NewTaskActivity.this,"Please fill all fields",Toast.LENGTH_LONG).show();
@@ -143,10 +142,6 @@ public class NewTaskActivity extends AppCompatActivity {
 
     }
 
-    private void increaseNotifID() {
-
-    }
-
     public void createReminder(String subjectName){
         // alarmService (at this particular time, do this for me...)
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
@@ -160,10 +155,24 @@ public class NewTaskActivity extends AppCompatActivity {
         cal.add(Calendar.SECOND,30);
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),broadcast);
 
+        // Need shared prefs to hold a notification id and increase it everytime the done btn is clicked
+
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
         if (sharedpreferences.contains(Name)){
-            notificationIntent.putExtra("notifID",sharedpreferences.getString(Name,""));
+            String sID = sharedpreferences.getString(Name,"0");
+            int iID = Integer.parseInt(sID);
+            int iIDPlus = iID + 1;
+            notificationIntent.putExtra("notifID",iIDPlus); // add id to
+            // put increased notification id back to shared prefs
+                // convert iIDPlus to string
+            sID = iIDPlus + "";
+                // put string back to shared prefs
+            sharedpreferences.edit().putString(Name,sID).apply();
+        } else {
+            // start shared prefs with value of 1
+            sharedpreferences.edit().putString(Name,"1").apply();
+            notificationIntent.putExtra("notifID",1);
         }
     }
 

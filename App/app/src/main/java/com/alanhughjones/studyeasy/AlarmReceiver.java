@@ -23,6 +23,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         Intent notificationIntent = new Intent(context, SubjectListActivity.class);
         String subjectName = intent.getStringExtra("subject");
+        int notifID = intent.getIntExtra("notifID",0);
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
         stackBuilder.addParentStack(SubjectListActivity.class);
@@ -53,6 +54,6 @@ public class AlarmReceiver extends BroadcastReceiver {
             notificationManager.createNotificationChannel(channel);
         }
 
-        notificationManager.notify(0, notification);
+        notificationManager.notify(notifID, notification);
     }
 }
