@@ -10,20 +10,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v4.app.NotificationCompat;
+import android.widget.Toast;
 
 public class AlarmReceiver extends BroadcastReceiver {
     private static final String CHANNEL_ID = "com.singhajit.notificationDemo.channelId";
     // TODO change above Channel to different name
-
+    public static final String Name = "nofifID";
 
     @Override
     public void onReceive(Context context, Intent intent) {
 
+        SharedPreferences prefs = context.getSharedPreferences("mypref",Context.MODE_PRIVATE);
+        String sID = prefs.getString(Name,"0");
+        int notifID = Integer.parseInt(sID);
+
         Intent notificationIntent = new Intent(context, SubjectListActivity.class);
         String subjectName = intent.getStringExtra("subject");
-        int notifID = intent.getIntExtra("notifID",0);
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
         stackBuilder.addParentStack(SubjectListActivity.class);
@@ -34,7 +36,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         Notification.Builder builder = new Notification.Builder(context);
 
         Notification notification = builder.setContentTitle(subjectName)
-                .setContentText("You set a reminder for a task")
+                .setContentText(sID)
                 .setTicker("New Message Alert!")
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentIntent(pendingIntent).build();

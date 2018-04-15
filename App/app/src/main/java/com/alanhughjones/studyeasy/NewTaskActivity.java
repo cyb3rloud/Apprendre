@@ -16,7 +16,10 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class NewTaskActivity extends AppCompatActivity {
 
@@ -66,7 +69,7 @@ public class NewTaskActivity extends AppCompatActivity {
                     Intent showAllTasks = new Intent(NewTaskActivity.this,TaskOverviewActivity.class);
                     showAllTasks.putExtra("id",selectedID);
                     showAllTasks.putExtra("name",selectedName);
-                    createReminder(selectedName);
+                    createReminder(selectedName, taskDate);
                     startActivity(showAllTasks);
                 } else {
                     Toast.makeText(NewTaskActivity.this,"Please fill all fields",Toast.LENGTH_LONG).show();
@@ -142,7 +145,7 @@ public class NewTaskActivity extends AppCompatActivity {
 
     }
 
-    public void createReminder(String subjectName){
+    public void createReminder(String subjectName, String taskDate){
         // alarmService (at this particular time, do this for me...)
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
@@ -151,8 +154,9 @@ public class NewTaskActivity extends AppCompatActivity {
         PendingIntent broadcast = PendingIntent.getBroadcast(this, 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         //TODO get time set from Picker and use for notification
+
         Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.SECOND,30);
+        cal.add(Calendar.SECOND,20);
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),broadcast);
 
         // Need shared prefs to hold a notification id and increase it everytime the done btn is clicked
@@ -163,12 +167,11 @@ public class NewTaskActivity extends AppCompatActivity {
             String sID = sharedpreferences.getString(Name,"0");
             int iID = Integer.parseInt(sID);
             int iIDPlus = iID + 1;
-            notificationIntent.putExtra("notifID",iIDPlus); // add id to
-            // put increased notification id back to shared prefs
-                // convert iIDPlus to string
+            // convert iIDPlus to string
             sID = iIDPlus + "";
-                // put string back to shared prefs
+            // put string back to shared prefs
             sharedpreferences.edit().putString(Name,sID).apply();
+            //Toast.makeText(NewTaskActivity.this, "sID = " + sID, Toast.LENGTH_LONG).show();
         } else {
             // start shared prefs with value of 1
             sharedpreferences.edit().putString(Name,"1").apply();
