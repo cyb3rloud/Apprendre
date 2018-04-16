@@ -40,6 +40,11 @@ public class NewTaskActivity extends AppCompatActivity {
     public static final String mypreference = "mypref";
     public static final String Name = "nofifID";
     public static final int NID = 0;
+    public String sSelectedHour;
+    public String sSelectedMinute;
+    public String sDayOfMonth;
+    public String sMonthOfYear;
+    public String sYear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +74,7 @@ public class NewTaskActivity extends AppCompatActivity {
                     Intent showAllTasks = new Intent(NewTaskActivity.this,TaskOverviewActivity.class);
                     showAllTasks.putExtra("id",selectedID);
                     showAllTasks.putExtra("name",selectedName);
-                    createReminder(selectedName, taskDate);
+                    createReminder(selectedName);
                     startActivity(showAllTasks);
                 } else {
                     Toast.makeText(NewTaskActivity.this,"Please fill all fields",Toast.LENGTH_LONG).show();
@@ -87,8 +92,6 @@ public class NewTaskActivity extends AppCompatActivity {
                 timePicker = new TimePickerDialog(NewTaskActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        String sSelectedHour;
-                        String sSelectedMinute;
 
                         if (selectedHour<10){
                             sSelectedHour = "0" + selectedHour;
@@ -106,6 +109,7 @@ public class NewTaskActivity extends AppCompatActivity {
                     }
                 }, hour, minute, true);
                 timePicker.show();
+
             }
         });
 
@@ -121,8 +125,7 @@ public class NewTaskActivity extends AppCompatActivity {
                         new DatePickerDialog.OnDateSetListener(){
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth){
-                                String sDayOfMonth;
-                                String sMonthOfYear;
+
                                 if (dayOfMonth<10){
                                     sDayOfMonth = "0" + dayOfMonth;
                                 } else {
@@ -133,10 +136,10 @@ public class NewTaskActivity extends AppCompatActivity {
                                 } else {
                                     sMonthOfYear = Integer.toString(monthOfYear+1);
                                 }
-
+                                sYear = Integer.toString(year);
                                 showDate = sDayOfMonth + "-" + sMonthOfYear + "-" + year;
                                 taskDate = year + "-" + sMonthOfYear + "-" + sDayOfMonth;
-                                showNewDate.setHint(showDate);
+                                showNewDate.setText(showDate);
                             }
                         },year_x,month_x,day_x);
                 picker.show();
@@ -145,7 +148,7 @@ public class NewTaskActivity extends AppCompatActivity {
 
     }
 
-    public void createReminder(String subjectName, String taskDate){
+    public void createReminder(String subjectName){
         // Need shared prefs to hold a notification id and increase it everytime the done btn is clicked
 
         sharedpreferences = getSharedPreferences(mypreference,
@@ -176,16 +179,19 @@ public class NewTaskActivity extends AppCompatActivity {
 
         //TODO get time set from Picker and use for notification
 
+        //int iSelectedMin = Integer.parseInt(sSelectedMinute);
+
         Calendar cal = Calendar.getInstance();
 
-        cal.set(Calendar.YEAR, 2018);
-        cal.set(Calendar.MONTH, 3); // decreased by one
-        cal.set(Calendar.DAY_OF_MONTH, 16);
-        cal.set(Calendar.HOUR_OF_DAY, 18); // increase by one?
-        cal.set(Calendar.MINUTE, 27);
+        cal.set(Calendar.YEAR, Integer.parseInt(sYear));
+        cal.set(Calendar.MONTH, Integer.parseInt(sMonthOfYear)-1); // decreased by one
+        cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(sDayOfMonth));
+        cal.set(Calendar.HOUR_OF_DAY, Integer.parseInt(sSelectedHour)); // increase by one?
+        cal.set(Calendar.MINUTE, Integer.parseInt(sSelectedMinute));
         cal.set(Calendar.SECOND,0);
 
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),broadcast);
+
     }
 
     public void addTask(String newTaskDate, String newTaskDesc, int subjectID){
