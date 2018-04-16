@@ -177,7 +177,14 @@ public class NewTaskActivity extends AppCompatActivity {
         //TODO get time set from Picker and use for notification
 
         Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.SECOND,30);
+
+        cal.set(Calendar.YEAR, 2018);
+        cal.set(Calendar.MONTH, 3); // decreased by one
+        cal.set(Calendar.DAY_OF_MONTH, 16);
+        cal.set(Calendar.HOUR_OF_DAY, 18); // increase by one?
+        cal.set(Calendar.MINUTE, 27);
+        cal.set(Calendar.SECOND,0);
+
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),broadcast);
     }
 

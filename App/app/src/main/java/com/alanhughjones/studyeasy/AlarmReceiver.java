@@ -12,7 +12,6 @@ import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
-import android.widget.Toast;
 
 public class AlarmReceiver extends BroadcastReceiver {
     private static final String CHANNEL_ID = "com.singhajit.notificationDemo.channelId";
@@ -35,7 +34,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         stackBuilder.addParentStack(SubjectListActivity.class);
         stackBuilder.addNextIntent(notificationIntent);
 
-        PendingIntent pendingIntent = stackBuilder.getPendingIntent(notifID, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = stackBuilder.getPendingIntent(notifID, PendingIntent.FLAG_ONE_SHOT);
 
         Notification.Builder builder = new Notification.Builder(context);
 
