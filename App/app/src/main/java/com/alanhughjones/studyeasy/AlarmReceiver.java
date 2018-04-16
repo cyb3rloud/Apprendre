@@ -9,6 +9,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.widget.Toast;
 
@@ -19,6 +21,8 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+
+        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
         SharedPreferences prefs = context.getSharedPreferences("mypref",Context.MODE_PRIVATE);
         String sID = prefs.getString(Name,"0");
@@ -31,14 +35,17 @@ public class AlarmReceiver extends BroadcastReceiver {
         stackBuilder.addParentStack(SubjectListActivity.class);
         stackBuilder.addNextIntent(notificationIntent);
 
-        PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = stackBuilder.getPendingIntent(notifID, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Notification.Builder builder = new Notification.Builder(context);
 
-        Notification notification = builder.setContentTitle(subjectName)
-                .setContentText(sID)
-                .setTicker("New Message Alert!")
+        Notification notification = builder.setContentTitle("Study Easy")
+                .setContentText("Upcoming task for " + subjectName)
+                .setTicker("Upcoming task for " + subjectName)
                 .setSmallIcon(R.mipmap.ic_launcher)
+                .setAutoCancel(true)
+                .setVibrate(new long[] {100,250,100,250})
+                .setSound(alarmSound)
                 .setContentIntent(pendingIntent).build();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){

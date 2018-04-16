@@ -146,19 +146,6 @@ public class NewTaskActivity extends AppCompatActivity {
     }
 
     public void createReminder(String subjectName, String taskDate){
-        // alarmService (at this particular time, do this for me...)
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-
-        Intent notificationIntent = new Intent(this, AlarmReceiver.class);
-        notificationIntent.putExtra("subject",subjectName);
-        PendingIntent broadcast = PendingIntent.getBroadcast(this, 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        //TODO get time set from Picker and use for notification
-
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.SECOND,20);
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),broadcast);
-
         // Need shared prefs to hold a notification id and increase it everytime the done btn is clicked
 
         sharedpreferences = getSharedPreferences(mypreference,
@@ -175,8 +162,23 @@ public class NewTaskActivity extends AppCompatActivity {
         } else {
             // start shared prefs with value of 1
             sharedpreferences.edit().putString(Name,"1").apply();
-            notificationIntent.putExtra("notifID",1);
         }
+
+        String sID = sharedpreferences.getString(Name,"0");
+        int notifID = Integer.parseInt(sID);
+
+        // alarmService (at this particular time, do this for me...)
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+        Intent notificationIntent = new Intent(this, AlarmReceiver.class);
+        notificationIntent.putExtra("subject",subjectName);
+        PendingIntent broadcast = PendingIntent.getBroadcast(this, notifID, notificationIntent, PendingIntent.FLAG_ONE_SHOT);
+
+        //TODO get time set from Picker and use for notification
+
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.SECOND,30);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),broadcast);
     }
 
     public void addTask(String newTaskDate, String newTaskDesc, int subjectID){
@@ -184,6 +186,6 @@ public class NewTaskActivity extends AppCompatActivity {
         if(insertData)
             Toast.makeText(NewTaskActivity.this,"Task Inserted",Toast.LENGTH_LONG).show();
         else
-            Toast.makeText(NewTaskActivity.this,"Task not Inserted",Toast.LENGTH_LONG).show();
+            Toast.makeText(NewTaskActivity.this,"Task not inserted",Toast.LENGTH_LONG).show();
     }
 }
