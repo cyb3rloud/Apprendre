@@ -31,13 +31,6 @@ Subjects (event groupings) can be added and deleted with no maximum limit placed
 * English (US)  
 * Portuguese (BR)
 
-### Activities
-Main visible activities:
-SubjectListActivity - The first activity shown which allows the creation of a new subject grouping and also shows the list of previously created subject groupings.
-The DatabaseHelper object '**myDB**' queries the database using its '**getAllData**' method and returns the data to  
-
-
-
 [![YouTube](https://img.youtube.com/vi/1z_0wQoKoTg/0.jpg)](https://www.youtube.com/watch?v=1z_0wQoKoTg)
 
 App download available on the [Play Store](https://play.google.com/store/apps/details?id=com.alanhughjones.studyeasy "Download Study Easy - Play Store")
