@@ -6,7 +6,7 @@
 **Development by:** Alan Jones  
 **Student Number:** C16719689  
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/1z_0wQoKoTg?rel=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+[![YouTube](https://img.youtube.com/vi/1z_0wQoKoTg/0.jpg)](https://www.youtube.com/watch?v=1z_0wQoKoTg)
 
 ## Project Details  
 
