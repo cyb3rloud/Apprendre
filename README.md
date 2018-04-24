@@ -22,11 +22,21 @@ Subjects (event groupings) can be added and deleted with no maximum limit placed
 * [InVision](https://www.invisionapp.com/) (Visual Design)
 * [Adobe Photoshop](https://www.photoshop.com/)
 
-
 **_Development Languages/Tools_**  
 * Java
 * XML
 * SQLite / SQL
+
+**_Release Languages_**
+* English (US)  
+* Portuguese (BR)
+
+### Activities
+Main visible activities:
+SubjectListActivity - The first activity shown which allows the creation of a new subject grouping and also shows the list of previously created subject groupings.
+The DatabaseHelper object '**myDB**' queries the database using its '**getAllData**' method and returns the data to  
+
+
 
 [![YouTube](https://img.youtube.com/vi/1z_0wQoKoTg/0.jpg)](https://www.youtube.com/watch?v=1z_0wQoKoTg)
 
