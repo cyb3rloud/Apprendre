@@ -1,6 +1,7 @@
 ![alt text](https://github.com/AlanJonesDIT/StudyEase/blob/master/App/app/src/main/res/mipmap-hdpi/ic_launcher_round.png "Study Easy logo")  
 
 # Study Easy
+*Version 2.0*  
 
 **Development by:** Alan Jones  
 **Student Number:** C16719689  
