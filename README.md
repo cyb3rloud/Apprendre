@@ -15,8 +15,18 @@ The app stores events locally and no internet connection is required. To help wi
 Subjects (event groupings) can be added and deleted with no maximum limit placed on the amount. Events can also be created and deleted while also giving the option to be edited.
 
 #### Technologies Utilized
-*IDE*  
-*Android Studio
+**_IDE/Applications_**
+* [Android Studio](https://developer.android.com/studio/index.html)
+* [erwin Data Modeler](https://erwin.com/products/data-modeler/) (_database design_)
+* [Oracle Database 11g Express](http://www.oracle.com/technetwork/database/database-technologies/express-edition/downloads/index.html) (_database testing_)
+* [InVision](https://www.invisionapp.com/) (Visual Design)
+* [Adobe Photoshop](https://www.photoshop.com/)
+
+
+**_Development Languages/Tools_**  
+* Java
+* XML
+* SQLite / SQL
 
 [![YouTube](https://img.youtube.com/vi/1z_0wQoKoTg/0.jpg)](https://www.youtube.com/watch?v=1z_0wQoKoTg)
 
