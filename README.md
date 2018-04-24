@@ -2,8 +2,11 @@
 
 # Study Easy
 
-Development by: Alan Jones
-Student Number: C16719689
+**Development by:** Alan Jones  
+**Student Number:** C16719689  
+
+## Project Details  
+
 App development to aid students with easier tracking of assignments
 
 App download available at https://play.google.com/store/apps/details?id=com.alanhughjones.studyeasy
