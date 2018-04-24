@@ -7,14 +7,14 @@
 **Student Number:** C16719689  
 
 ## Project Details  
-#### Summary  
+### Summary  
 Study Easy was developed with students in mind. The app is designed to allow students to keep track of college assignments, exams, homework, events but can also be used for everyday activities and reminders.
 
 The app stores events locally and no internet connection is required. To help with reminding users of events, notifications are created at the time of event creation and use the device's AlarmManager to trigger notifications which appear in the device's notification bar when the event is due to occur. 
 
 Subjects (event groupings) can be added and deleted with no maximum limit placed on the amount. Events can also be created and deleted while also giving the option to be edited.
 
-#### Technologies Utilized
+### Technologies Utilized
 **_IDE/Applications_**
 * [Android Studio](https://developer.android.com/studio/index.html)
 * [erwin Data Modeler](https://erwin.com/products/data-modeler/) (_database design_)
